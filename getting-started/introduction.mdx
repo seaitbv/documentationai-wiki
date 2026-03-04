@@ -1,0 +1,92 @@
+---
+title: "Introduction to ARMS"
+description: "Overview of the Atrac Rental Management System — an enterprise platform for managing trailer rental operations from fleet to invoicing."
+---
+
+## What is ARMS?
+
+The **Atrac Rental Management System (ARMS)** is a web-based enterprise application that supports the complete trailer rental lifecycle for **Atrac** and **Urbain** (Urbain Rental Group). From fleet management and customer onboarding through offers, contracts, and invoicing — ARMS provides a single platform for all rental operations.
+
+<Columns cols="3">
+  <Card title="Fleet Management" href="/user-guide/fleet/overview" icon="truck" horizontal={false}>
+    Track trailers, inspections, km registrations, and non-productive periods across your entire fleet.
+  </Card>
+
+  <Card title="Commercial Flow" href="/user-guide/offers/overview" icon="file-text" horizontal={false}>
+    Create offers, convert to contracts, and send documents via Outlook integration.
+  </Card>
+
+  <Card title="Invoicing" href="/user-guide/invoicing/overview" icon="receipt" horizontal={false}>
+    Generate invoice proposals by day, month, or km — then export to Exact Online.
+  </Card>
+</Columns>
+
+## Key capabilities
+
+| Capability | Description |
+|-----------|-------------|
+| **Fleet tracking** | Manage trailers with technical inspections, km registrations, and non-productive periods |
+| **Customer management** | Maintain customer records with automatic VIES VAT validation |
+| **Offer-to-contract flow** | Create offers, send via Outlook, convert accepted offers to contracts |
+| **Contract lifecycle** | Full status management from creation through rental to completion |
+| **Invoice generation** | Automatic invoice proposals for day-based, month-based, and km-based contracts |
+| **Exact Online export** | Export invoices in the standard Exact Online JSON format |
+| **Gantt-style planning** | Visual timeline of trailer availability, contracts, and non-productive periods |
+| **Parameterization** | All thresholds and triggers configurable by administrators |
+
+## Supported entities
+
+ARMS operates as a multi-tenant system supporting two legal entities within the same environment:
+
+| Entity | Focus | Invoicing System |
+|--------|-------|-----------------|
+| **Atrac** | Short- and medium-term trailer rental | Exact Online |
+| **Urbain** | Long-term trailer rental | Exact Online |
+
+Each entity has its own templates, invoice numbering, and VAT references. Offers, contracts, and invoices are managed per entity.
+
+## User roles
+
+ARMS implements five distinct user roles, each with specific module access:
+
+| Role | Description |
+|------|-------------|
+| **Admin** | Full access to all modules including parameters, dropdown values, and templates |
+| **Commercial** | Create and manage customers, offers, and contracts |
+| **Accounting** | Generate invoice proposals, manage invoices, export to Exact Online |
+| **Fleet Manager** | Manage trailers, inspections, km registrations, and non-productive periods |
+| **Read-Only** | View-only access to dashboard, fleet, contracts, and planning |
+
+<Callout kind="tip">
+  For detailed access information per role, see the [Role Guides](/role-guides/by-role/admin).
+</Callout>
+
+## Languages
+
+ARMS is fully bilingual in **Dutch (NL)** and **French (FR)**:
+
+- All UI labels, messages, and validation errors are translated
+- The logged-in user's language determines the interface language
+- Document templates (offers, contracts) exist per entity and per language
+- Dropdown values are translatable per language
+
+## What is not in scope
+
+The following are handled outside of ARMS:
+
+- Actual invoice sending and payment processing (handled in Exact Online)
+- Repair order management (external system — ARMS stores only a reference)
+- HR module
+- Debtor management and payment reminders (handled in Exact Online)
+
+## Next steps
+
+<Columns cols="2">
+  <Card title="Logging In" href="/getting-started/logging-in" icon="log-in" horizontal={false}>
+    Learn how to sign in with your Microsoft account.
+  </Card>
+
+  <Card title="Your First Workflow" href="/getting-started/first-workflow" icon="play" horizontal={false}>
+    Walk through a complete offer-to-invoice cycle.
+  </Card>
+</Columns>

@@ -1,0 +1,90 @@
+---
+title: "Inspections"
+description: "Track and manage technical inspections for your trailers, including expiry warnings and status monitoring."
+---
+
+Every rental trailer must undergo periodic technical inspections. The Inspections tab on the [trailer detail screen](/user-guide/fleet/trailer-details) lets you track all inspection records and monitor upcoming expiry dates.
+
+## Inspection list
+
+The inspection list displays all inspections for a trailer in chronological order.
+
+| Column | Description |
+|--------|-------------|
+| **Valid from** | Start date of the inspection validity period |
+| **Valid to** | End date of the inspection validity period |
+| **Status** | Active, Expired, or Future |
+| **Remaining days** | Calculated number of days until expiry (`valid_to` minus today) |
+
+## Color coding
+
+Each inspection row is color-coded based on its expiry status:
+
+| Color | Condition | Meaning |
+|-------|-----------|---------|
+| Red | `valid_to` is in the past | Inspection has expired |
+| Orange | `valid_to` is within the warning threshold | Inspection is expiring soon |
+| Green | `valid_to` is beyond the warning threshold | Inspection is valid |
+
+<Callout kind="info">
+  The warning threshold is controlled by the **INSPECTION_WARNING_DAYS** parameter. When an inspection's expiry date falls within this number of days from today, it displays in orange. Your administrator can adjust this value in the [Parameters](/user-guide/administration/parameters) module.
+</Callout>
+
+## Adding a new inspection
+
+<Steps>
+  <Step title="Open the inspection form" icon="plus" titleType="p">
+    Click **Add inspection** on the Inspections tab. The inspection form opens.
+  </Step>
+
+  <Step title="Enter the validity dates" icon="calendar" titleType="p">
+    Set the **Valid from** date (when the inspection starts) and the **Valid to** date (when it expires).
+  </Step>
+
+  <Step title="Save the inspection" icon="save" titleType="p">
+    Click **Save** to add the inspection record. The list updates with the new entry and the header card reflects the updated inspection date.
+  </Step>
+</Steps>
+
+## Editing an inspection
+
+You can edit only the most recent active inspection. Older or expired inspections are read-only to preserve the audit trail.
+
+<Steps>
+  <Step title="Select the inspection" icon="edit" titleType="p">
+    Click the edit action on the most recent active inspection row.
+  </Step>
+
+  <Step title="Update the dates" icon="calendar" titleType="p">
+    Modify the **Valid from** or **Valid to** dates as needed.
+  </Step>
+
+  <Step title="Save your changes" icon="save" titleType="p">
+    Click **Save** to apply the updated dates.
+  </Step>
+</Steps>
+
+<Callout kind="alert">
+  Expired inspections affect the trailer's status in the [fleet overview](/user-guide/fleet/overview). An expired inspection displays the inspection column in red, making it easy to identify trailers that need urgent attention.
+</Callout>
+
+## Inspection status on the fleet overview
+
+The **Inspection** column in the fleet list shows the `valid_to` date of the active inspection. You can filter the fleet list by inspection status:
+
+- **All** - Shows all trailers regardless of inspection status
+- **Expired** - Shows only trailers with expired inspections
+- **Expiring soon** - Shows trailers within the warning threshold
+- **Valid** - Shows trailers with valid inspections
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Fleet overview" href="/user-guide/fleet/overview" icon="list" horizontal="false">
+    Filter the fleet list by inspection status.
+  </Card>
+
+  <Card title="Planning timeline" href="/user-guide/planning/reading-timeline" icon="calendar" horizontal="false">
+    See inspection milestones on the planning view.
+  </Card>
+</Columns>

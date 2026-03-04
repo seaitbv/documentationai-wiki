@@ -1,0 +1,78 @@
+---
+title: "Damage control"
+description: "Track post-return trailer inspections and damage findings on contracts in ARMS."
+---
+
+After a customer returns a trailer, you need to inspect it for damage before completing the contract. The damage control tab on the contract detail screen lets you record the inspection result and link any repair work.
+
+<Callout kind="info">
+  The damage control tab becomes visible and editable only after the trailer has been returned (the contract is in "To check" status or later).
+</Callout>
+
+## Damage control fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| **Checked** | Checkbox | Indicates whether the technical inspection has been performed |
+| **Damage found** | Checkbox | Indicates whether damage was found during the inspection |
+| **Repair order reference** | Text | Reference to the external repair order system for tracking repairs |
+
+## Inspection workflow
+
+<Steps>
+  <Step title="Return the trailer" icon="undo" titleType="p">
+    When the customer returns the trailer, update the contract status from "In rental" to "To check". This enables the damage control tab.
+  </Step>
+
+  <Step title="Perform the inspection" icon="clipboard-check" titleType="p">
+    Physically inspect the trailer for any damage, wear, or issues.
+  </Step>
+
+  <Step title="Record the result" icon="edit" titleType="p">
+    On the damage control tab:
+    - Check the **Checked** checkbox to confirm the inspection is done
+    - If you found damage, check the **Damage found** checkbox
+    - If a repair is needed, enter the **Repair order reference** to link the external repair work
+  </Step>
+
+  <Step title="Complete the contract" icon="check-circle" titleType="p">
+    Once the inspection is done and any repairs are resolved, mark the contract as "Completed". This triggers the automatic [deposit credit note](/user-guide/contracts/deposits-advances).
+  </Step>
+</Steps>
+
+## Yellow background warning
+
+While a contract has outstanding damage control items, the contract row appears with a **yellow background** in the contract list and on the planning timeline. This visual indicator remains active when either:
+
+- The **Checked** checkbox is not checked (inspection not yet performed)
+- The **Damage found** checkbox is checked (damage exists that needs resolution)
+
+<Callout kind="tip">
+  The yellow background clears automatically when the linked repair order is marked as completed (either through the external system or manually). This returns the contract row and planning timeline to their normal appearance.
+</Callout>
+
+## Resolving damage
+
+When damage is found, the typical resolution flow is:
+
+1. Record the damage on the damage control tab
+2. Create a repair order in your external repair system
+3. Enter the repair order reference on the contract
+4. Once the repair is completed, the yellow indicator clears
+5. You can now mark the contract as "Completed"
+
+<Callout kind="alert">
+  You can technically mark a contract as "Completed" before the repair order is resolved, but the yellow background serves as a reminder to ensure all damage is properly handled and costs are accounted for.
+</Callout>
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Contract lifecycle" href="/user-guide/contracts/lifecycle" icon="git-branch" horizontal="false">
+    Understand the full status flow including the "To check" stage.
+  </Card>
+
+  <Card title="Contract overview" href="/user-guide/contracts/overview" icon="list" horizontal="false">
+    See how attention colors highlight contracts needing action.
+  </Card>
+</Columns>

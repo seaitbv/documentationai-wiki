@@ -1,0 +1,113 @@
+---
+title: "Exact Online export"
+description: "Export invoices from ARMS to Exact Online for payment processing and accounting."
+---
+
+ARMS exports invoices to Exact Online, the accounting system used by both Atrac and Urbain. The current implementation uses a JSON file download that you upload to Exact Online. A direct API integration is planned for a future release.
+
+## Prerequisites
+
+Before you can export an invoice, ARMS validates the following:
+
+| Requirement | Description |
+|-------------|-------------|
+| **Customer VAT number** | The customer must have a valid VAT number on their record |
+| **Invoice number** | The invoice must have a generated invoice number |
+| **Invoice date and due date** | Both dates must be set |
+| **At least one invoice line** | The invoice must contain at least one line item |
+
+<Callout kind="alert">
+  If any validation fails, ARMS displays an error message explaining what is missing. Fix the issue on the invoice or customer record before retrying the export.
+</Callout>
+
+## Export process
+
+<Steps>
+  <Step title="Navigate to the invoice" icon="file-text" titleType="p">
+    On the [effective invoices](/user-guide/invoicing/managing-invoices) tab, find the invoice you want to export. It must have the status "Created".
+  </Step>
+
+  <Step title="Click Export to Exact Online" icon="upload" titleType="p">
+    Click the **Export to Exact Online** button. This button is only visible for invoices with the "Created" status.
+  </Step>
+
+  <Step title="Download the JSON file" icon="download" titleType="p">
+    ARMS validates the invoice data and generates a JSON file. The file downloads automatically to your computer.
+  </Step>
+
+  <Step title="Upload to Exact Online" icon="upload" titleType="p">
+    Log in to Exact Online and upload the JSON file through the import interface. Follow your organization's Exact Online procedures for processing the import.
+  </Step>
+
+  <Step title="Verify the export" icon="check-circle" titleType="p">
+    After a successful export, the invoice status in ARMS changes to "Sent". The Exact Online reference is stored on the invoice record.
+
+    <Callout kind="info">
+      If the export fails, ARMS displays the error response. Common issues include invalid VAT numbers or mismatched customer codes in Exact Online.
+    </Callout>
+  </Step>
+</Steps>
+
+## Field mapping
+
+ARMS maps invoice data to Exact Online fields as follows:
+
+| ARMS field | Exact Online field | Notes |
+|------------|-------------------|-------|
+| Customer VAT number | `CustomerCode` | Used as the customer identifier in Exact Online |
+| Invoice number | `YourRef` | The ARMS invoice number for cross-referencing |
+| Invoice date | `InvoiceDate` | -- |
+| Due date | `DueDate` | Calculated from payment conditions |
+| Line description | `Description` | Per invoice line |
+| Line quantity | `Quantity` | Per invoice line |
+| Line unit price | `UnitPrice` | Per invoice line |
+| Line net amount | `NetAmount` | Per invoice line |
+| Line VAT rate | `VATCode` | Mapped using the table below |
+
+### VAT code mapping
+
+ARMS maps VAT percentages to Exact Online VAT codes:
+
+| VAT % | Exact Online code |
+|-------|-------------------|
+| 21% | `1` |
+| 12% | `3` |
+| 6% | `2` |
+| 0% | `0` |
+
+<Callout kind="tip">
+  Insurance lines always use VAT code `0` (0% VAT). Rental lines use the VAT code corresponding to the customer's VAT percentage.
+</Callout>
+
+## After export
+
+Once an invoice is exported:
+
+- The status changes from "Created" to **Sent**
+- The Exact Online reference is stored on the invoice
+- Payment status updates are returned from Exact Online (Open, Partially paid, Fully paid)
+- You can view the Exact Online payment status on the [invoice list](/user-guide/invoicing/managing-invoices)
+
+## Future: direct API integration
+
+A future release will replace the JSON download with a direct API integration using OAuth2 authentication. This will allow:
+
+- Automatic export without manual file uploads
+- Real-time payment status synchronization
+- Automated reconciliation between ARMS and Exact Online
+
+<Callout kind="info">
+  Until the direct integration is available, continue using the JSON download workflow described above.
+</Callout>
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Managing invoices" href="/user-guide/invoicing/managing-invoices" icon="settings" horizontal="false">
+    View and manage all effective invoices and their statuses.
+  </Card>
+
+  <Card title="Invoicing overview" href="/user-guide/invoicing/overview" icon="receipt" horizontal="false">
+    Understand the full invoicing workflow in ARMS.
+  </Card>
+</Columns>

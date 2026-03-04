@@ -1,151 +1,285 @@
 {
-  "name": "Starter Kit",
+  "name": "ARMS Documentation",
+  "initialRoute": "getting-started/introduction",
   "colors": {
     "light": {
-      "brand": "#F97316"
+      "brand": "#3143e3",
+      "heading": "#1a1a1a",
+      "text": "#374151"
     },
     "dark": {
-      "brand": "#FDBA74"
+      "brand": "#85a1ff",
+      "heading": "#f2f2f2",
+      "text": "#c1c1c1"
     }
   },
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
-        "icon": "book",
+        "tab": "User Guide",
+        "icon": "book-open",
         "groups": [
           {
-            "group": "Start Here",
+            "group": "Getting Started",
             "icon": "rocket",
+            "expandable": false,
             "pages": [
-              {
-                "title": "Introduction",
-                "path": "introduction",
-                "icon": "home"
-              },
-              {
-                "title": "Quickstart",
-                "path": "quickstart",
-                "icon": "zap"
-              },
-              {
-                "title": "Components",
-                "path": "components",
-                "icon": "code"
-              }
+              { "title": "Introduction", "path": "getting-started/introduction", "icon": "star" },
+              { "title": "Logging In", "path": "getting-started/logging-in", "icon": "log-in" },
+              { "title": "Navigating ARMS", "path": "getting-started/navigating-arms", "icon": "compass" },
+              { "title": "Your First Workflow", "path": "getting-started/first-workflow", "icon": "play" }
             ]
           },
           {
-            "group": "Components",
-            "icon": "layers",
+            "group": "Dashboard",
+            "icon": "layout-dashboard",
+            "expandable": true,
             "pages": [
-              {
-                "title": "Images",
-                "path": "components/images",
-                "icon": "image"
-              },
-              {
-                "title": "Cards",
-                "path": "components/cards",
-                "icon": "square"
-              },
-              {
-                "title": "Code",
-                "path": "components/code",
-                "icon": "code"
-              },
-              {
-                "title": "Callouts",
-                "path": "components/callouts",
-                "icon": "message-square"
-              },
-              {
-                "title": "Steps",
-                "path": "components/steps",
-                "icon": "list-ordered"
-              },
-              {
-                "title": "Tabs",
-                "path": "components/tabs",
-                "icon": "columns"
-              }
+              { "title": "Overview", "path": "user-guide/dashboard/overview", "icon": "eye" },
+              { "title": "KPIs & Widgets", "path": "user-guide/dashboard/kpis", "icon": "bar-chart-3" },
+              { "title": "Notifications", "path": "user-guide/dashboard/notifications", "icon": "bell" },
+              { "title": "Activity Stream", "path": "user-guide/dashboard/activity-stream", "icon": "activity" }
+            ]
+          },
+          {
+            "group": "Fleet Management",
+            "icon": "truck",
+            "expandable": true,
+            "pages": [
+              { "title": "Overview", "path": "user-guide/fleet/overview", "icon": "list" },
+              { "title": "Trailer Details", "path": "user-guide/fleet/trailer-details", "icon": "file-text" },
+              { "title": "Inspections", "path": "user-guide/fleet/inspections", "icon": "clipboard-check" },
+              { "title": "Non-Productive Periods", "path": "user-guide/fleet/non-productive-periods", "icon": "pause-circle" },
+              { "title": "Km Registration", "path": "user-guide/fleet/km-registration", "icon": "gauge" },
+              { "title": "Status Changes", "path": "user-guide/fleet/status-changes", "icon": "refresh-cw" },
+              { "title": "Documents", "path": "user-guide/fleet/documents", "icon": "paperclip" }
+            ]
+          },
+          {
+            "group": "Customer Management",
+            "icon": "users",
+            "expandable": true,
+            "pages": [
+              { "title": "Overview", "path": "user-guide/customers/overview", "icon": "list" },
+              { "title": "Creating a Customer", "path": "user-guide/customers/creating-customer", "icon": "user-plus" },
+              { "title": "VIES Validation", "path": "user-guide/customers/vies-validation", "icon": "shield-check" },
+              { "title": "Contacts", "path": "user-guide/customers/contacts", "icon": "contact" }
+            ]
+          },
+          {
+            "group": "Offers",
+            "icon": "file-text",
+            "expandable": true,
+            "pages": [
+              { "title": "Overview", "path": "user-guide/offers/overview", "icon": "list" },
+              { "title": "Creating an Offer", "path": "user-guide/offers/creating-offer", "icon": "file-plus" },
+              { "title": "Sending via Outlook", "path": "user-guide/offers/sending-outlook", "icon": "mail" },
+              { "title": "Offer Lifecycle", "path": "user-guide/offers/lifecycle", "icon": "git-branch" },
+              { "title": "Converting to Contract", "path": "user-guide/offers/converting-to-contract", "icon": "arrow-right-circle" }
+            ]
+          },
+          {
+            "group": "Contracts",
+            "icon": "handshake",
+            "expandable": true,
+            "pages": [
+              { "title": "Overview", "path": "user-guide/contracts/overview", "icon": "list" },
+              { "title": "Creating a Contract", "path": "user-guide/contracts/creating-contract", "icon": "file-plus" },
+              { "title": "Contract Lifecycle", "path": "user-guide/contracts/lifecycle", "icon": "git-branch" },
+              { "title": "Deposits & Advances", "path": "user-guide/contracts/deposits-advances", "icon": "banknote" },
+              { "title": "Non-Driving Days", "path": "user-guide/contracts/non-driving-days", "icon": "calendar-off" },
+              { "title": "Damage Control", "path": "user-guide/contracts/damage-control", "icon": "alert-triangle" },
+              { "title": "Sending via Outlook", "path": "user-guide/contracts/sending-outlook", "icon": "mail" }
+            ]
+          },
+          {
+            "group": "Invoicing",
+            "icon": "receipt",
+            "expandable": true,
+            "pages": [
+              { "title": "Overview", "path": "user-guide/invoicing/overview", "icon": "list" },
+              { "title": "Invoice Proposals", "path": "user-guide/invoicing/proposals", "icon": "clipboard-list" },
+              { "title": "Day-Based Invoicing", "path": "user-guide/invoicing/day-based", "icon": "calendar" },
+              { "title": "Month-Based Invoicing", "path": "user-guide/invoicing/month-based", "icon": "calendar-range" },
+              { "title": "Km-Based Invoicing", "path": "user-guide/invoicing/km-based", "icon": "gauge" },
+              { "title": "Managing Invoices", "path": "user-guide/invoicing/managing-invoices", "icon": "settings" },
+              { "title": "Exact Online Export", "path": "user-guide/invoicing/exact-online-export", "icon": "upload" }
+            ]
+          },
+          {
+            "group": "Planning",
+            "icon": "calendar-days",
+            "expandable": true,
+            "pages": [
+              { "title": "Overview", "path": "user-guide/planning/overview", "icon": "eye" },
+              { "title": "Reading the Timeline", "path": "user-guide/planning/reading-timeline", "icon": "gantt-chart" },
+              { "title": "Creating NP Periods", "path": "user-guide/planning/creating-np-periods", "icon": "plus-circle" }
+            ]
+          },
+          {
+            "group": "Administration",
+            "icon": "sliders-horizontal",
+            "expandable": true,
+            "pages": [
+              { "title": "Parameters", "path": "user-guide/administration/parameters", "icon": "settings" },
+              { "title": "Dropdown Values", "path": "user-guide/administration/dropdown-values", "icon": "list-ordered" },
+              { "title": "Templates", "path": "user-guide/administration/templates", "icon": "file-stack" }
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "Role Guides",
+        "icon": "shield",
+        "groups": [
+          {
+            "group": "By Role",
+            "icon": "user-circle",
+            "expandable": false,
+            "pages": [
+              { "title": "Administrator", "path": "role-guides/by-role/admin", "icon": "crown" },
+              { "title": "Commercial", "path": "role-guides/by-role/commercial", "icon": "briefcase" },
+              { "title": "Accounting", "path": "role-guides/by-role/accounting", "icon": "calculator" },
+              { "title": "Fleet Manager", "path": "role-guides/by-role/fleet-manager", "icon": "truck" },
+              { "title": "Read-Only", "path": "role-guides/by-role/read-only", "icon": "eye" }
+            ]
+          },
+          {
+            "group": "Common Workflows",
+            "icon": "workflow",
+            "expandable": true,
+            "pages": [
+              { "title": "Offer-to-Cash", "path": "role-guides/workflows/offer-to-cash", "icon": "arrow-right" },
+              { "title": "Fleet Onboarding", "path": "role-guides/workflows/fleet-onboarding", "icon": "truck" },
+              { "title": "Monthly Invoicing", "path": "role-guides/workflows/monthly-invoicing", "icon": "calendar" },
+              { "title": "Trailer Return", "path": "role-guides/workflows/trailer-return", "icon": "undo" }
+            ]
+          },
+          {
+            "group": "Help Center",
+            "icon": "help-circle",
+            "expandable": true,
+            "pages": [
+              { "title": "FAQ", "path": "help/faq", "icon": "message-circle" },
+              { "title": "Troubleshooting", "path": "help/troubleshooting", "icon": "wrench" },
+              { "title": "Glossary", "path": "help/glossary", "icon": "book" }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Technical Docs",
         "icon": "code",
         "groups": [
           {
-            "group": "Overview",
-            "icon": "file-text",
+            "group": "Architecture",
+            "icon": "layers",
+            "expandable": false,
             "pages": [
-              {
-                "title": "Authentication",
-                "path": "authentication",
-                "icon": "lock"
-              }
+              { "title": "Overview", "path": "technical/architecture/overview", "icon": "layout" },
+              { "title": "Tech Stack", "path": "technical/architecture/tech-stack", "icon": "cpu" },
+              { "title": "Project Structure", "path": "technical/architecture/project-structure", "icon": "folder-tree" },
+              { "title": "Data Flow", "path": "technical/architecture/data-flow", "icon": "git-branch" },
+              { "title": "Multi-Tenancy", "path": "technical/architecture/multi-tenancy", "icon": "building" }
             ]
           },
           {
-            "group": "Sample Endpoints",
-            "openapi": "openapi.yaml"
-          }
-        ]
-      },
-      {
-        "tab": "Help Center",
-        "icon": "help-circle",
-        "pages": [
-          {
-            "title": "Help Center",
-            "path": "help-center",
-            "icon": "home"
-          },
-          {
-            "group": "FAQs",
-            "icon": "help-circle",
-            "expandable": false,
+            "group": "Database",
+            "icon": "database",
+            "expandable": true,
             "pages": [
-              {
-                "title": "Documentation Source",
-                "path": "help-center/faq/getting-started"
-              }
+              { "title": "Schema Overview", "path": "technical/database/schema-overview", "icon": "table" },
+              { "title": "Core Tables", "path": "technical/database/core-tables", "icon": "hard-drive" },
+              { "title": "Fleet Tables", "path": "technical/database/fleet-tables", "icon": "truck" },
+              { "title": "Commercial Tables", "path": "technical/database/commercial-tables", "icon": "handshake" },
+              { "title": "Invoice Tables", "path": "technical/database/invoice-tables", "icon": "receipt" },
+              { "title": "RLS Policies", "path": "technical/database/rls-policies", "icon": "shield" },
+              { "title": "Migrations", "path": "technical/database/migrations", "icon": "git-commit" }
             ]
           },
           {
-            "group": "Troubleshooting",
-            "icon": "alert-triangle",
-            "expandable": false,
+            "group": "Authentication",
+            "icon": "lock",
+            "expandable": true,
             "pages": [
-              {
-                "title": "Page Missing in Sidebar",
-                "path": "help-center/troubleshooting/install-error"
-              }
+              { "title": "Overview", "path": "technical/auth/overview", "icon": "key" },
+              { "title": "Supabase Auth", "path": "technical/auth/supabase-auth", "icon": "database" },
+              { "title": "Microsoft OAuth", "path": "technical/auth/microsoft-oauth", "icon": "cloud" },
+              { "title": "RBAC", "path": "technical/auth/rbac", "icon": "users" }
             ]
           },
           {
-            "group": "Guides",
-            "icon": "book-open",
-            "expandable": false,
+            "group": "Server Actions",
+            "icon": "zap",
+            "expandable": true,
             "pages": [
-              {
-                "title": "Create Your First Page",
-                "path": "help-center/guides/setup-project"
-              }
+              { "title": "Overview", "path": "technical/server-actions/overview", "icon": "eye" },
+              { "title": "Trailers", "path": "technical/server-actions/trailers", "icon": "truck" },
+              { "title": "Customers", "path": "technical/server-actions/customers", "icon": "users" },
+              { "title": "Offers", "path": "technical/server-actions/offers", "icon": "file-text" },
+              { "title": "Contracts", "path": "technical/server-actions/contracts", "icon": "handshake" },
+              { "title": "Invoicing", "path": "technical/server-actions/invoicing", "icon": "receipt" },
+              { "title": "Documents", "path": "technical/server-actions/documents", "icon": "paperclip" },
+              { "title": "Parameters", "path": "technical/server-actions/parameters", "icon": "settings" }
+            ]
+          },
+          {
+            "group": "State Machines",
+            "icon": "git-branch",
+            "expandable": true,
+            "pages": [
+              { "title": "Trailer Status", "path": "technical/state-machines/trailer-status", "icon": "truck" },
+              { "title": "Offer Status", "path": "technical/state-machines/offer-status", "icon": "file-text" },
+              { "title": "Contract Status", "path": "technical/state-machines/contract-status", "icon": "handshake" },
+              { "title": "Invoice Status", "path": "technical/state-machines/invoice-status", "icon": "receipt" }
+            ]
+          },
+          {
+            "group": "Integrations",
+            "icon": "plug",
+            "expandable": true,
+            "pages": [
+              { "title": "Microsoft Graph", "path": "technical/integrations/microsoft-graph", "icon": "mail" },
+              { "title": "VIES", "path": "technical/integrations/vies", "icon": "shield-check" },
+              { "title": "Exact Online", "path": "technical/integrations/exact-online", "icon": "upload" },
+              { "title": "Supabase Storage", "path": "technical/integrations/supabase-storage", "icon": "hard-drive" }
+            ]
+          },
+          {
+            "group": "Business Logic",
+            "icon": "calculator",
+            "expandable": true,
+            "pages": [
+              { "title": "Invoice Calculations", "path": "technical/business-logic/invoice-calculations", "icon": "sigma" },
+              { "title": "Auto-Transitions", "path": "technical/business-logic/auto-transitions", "icon": "refresh-cw" },
+              { "title": "Parameterization", "path": "technical/business-logic/parameterization", "icon": "sliders" }
+            ]
+          },
+          {
+            "group": "Development",
+            "icon": "terminal",
+            "expandable": true,
+            "pages": [
+              { "title": "Setup", "path": "technical/development/setup", "icon": "download" },
+              { "title": "Environment Variables", "path": "technical/development/env-variables", "icon": "key" },
+              { "title": "Testing", "path": "technical/development/testing", "icon": "test-tube" },
+              { "title": "Internationalization", "path": "technical/development/i18n", "icon": "globe" },
+              { "title": "Component Library", "path": "technical/development/component-library", "icon": "component" }
             ]
           }
         ]
       },
       {
         "tab": "Changelog",
-        "icon": "clock",
-        "pages": [
+        "icon": "history",
+        "groups": [
           {
-            "title": "Changelog",
-            "path": "changelog",
-            "icon": "history"
+            "group": "Releases",
+            "icon": "tag",
+            "expandable": false,
+            "pages": [
+              { "title": "Changelog", "path": "changelog", "icon": "list" }
+            ]
           }
         ]
       }

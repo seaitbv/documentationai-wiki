@@ -1,0 +1,99 @@
+---
+title: "Commercial"
+description: "Guide for the Commercial role focused on customer acquisition, offer creation, and contract management"
+---
+
+## Role overview
+
+As a Commercial user, your primary focus is on **customer relationships, offers, and contracts**. You manage the full sales cycle from customer creation through offer negotiation to contract execution. You can view fleet and planning data to inform your work but cannot modify fleet records or access invoicing.
+
+## Access matrix
+
+| Module | Access Level | What You Can Do |
+|--------|-------------|-----------------|
+| Dashboard | Full | View all KPIs, notifications, and activity |
+| Fleet | Read | View trailer details, inspections, properties (no editing) |
+| Customers | Full | Create, edit, and manage customers and contacts |
+| Offers | Full | Create, send, accept, reject, and convert offers |
+| Contracts | Full | Create, send, manage lifecycle, record non-driving days |
+| Invoicing | Read | View invoice overviews (no creation or export) |
+| Planning | Read | View the Gantt timeline (no modifications) |
+| Templates | -- | Not visible |
+| Parameters | -- | Not visible |
+
+<Callout kind="info">
+  You can see invoices linked to your contracts in read-only mode. For invoice generation and export, coordinate with the Accounting team.
+</Callout>
+
+## Key responsibilities
+
+- **Customer acquisition**: create new customers with VIES-validated VAT data and maintain contact information
+- **Offer management**: create, configure, and send rental offers via Outlook integration
+- **Contract lifecycle**: convert accepted offers to contracts, manage signing, and track status
+- **Trailer selection**: use fleet and planning views to find available trailers matching customer requirements
+- **Non-driving days**: register non-driving periods for day-based contracts
+
+## Daily workflow
+
+<Steps>
+  <Step title="Check the Dashboard" icon="layout-dashboard" titleType="p">
+    Review key indicators relevant to your role:
+
+    - **Open offers**: offers in "Created" or "Sent" status needing follow-up
+    - **Expiring offers**: offers approaching or past their due date
+    - **Contracts awaiting response**: contracts sent more than 7 days ago without a reply
+    - **Activity stream**: recent changes to your offers and contracts
+  </Step>
+
+  <Step title="Follow up on sent offers" icon="file-text" titleType="p">
+    Open the **Offers** module and filter on status "Sent". Check offers that are nearing their due date. Contact the customer or update the status as needed.
+
+    <Callout kind="tip">
+      Offers with a passed due date appear with a yellow badge. Address these first to keep your pipeline clean.
+    </Callout>
+  </Step>
+
+  <Step title="Process new customer requests" icon="user-plus" titleType="p">
+    For new customers:
+
+    1. Create the customer record with VIES validation.
+    2. Add contact persons with the correct language and communication preferences.
+    3. Create an offer based on the customer's requirements.
+    4. Use the Planning view to check trailer availability before committing to dates.
+  </Step>
+
+  <Step title="Manage active contracts" icon="handshake" titleType="p">
+    Review contracts in "Accepted" and "In Rental" status:
+
+    - Verify estimated dates are still accurate, update real pickup/dropoff dates as they become known.
+    - Register non-driving day periods when customers notify you of planned downtime (day-based contracts only).
+    - Coordinate with Fleet Management for trailer returns and inspections.
+  </Step>
+</Steps>
+
+## Tips for offer creation
+
+- **Check availability first**: open the [Planning](/user-guide/planning/overview) view to see which trailers are free during the requested period.
+- **Use trailer filters**: when selecting a trailer in the offer, the list is automatically filtered by the desired trailer properties you set (type, volume, sheet type, model, door type).
+- **Pre-fill from customer**: selecting a customer automatically fills VAT%, payment conditions, and available contacts.
+- **External description**: this text appears on the offer PDF sent to the customer. Write it clearly and professionally.
+
+## Related guides
+
+<Columns cols="2">
+  <Card title="Creating a Customer" href="/user-guide/customers/creating-customer" icon="user-plus" horizontal="false">
+    Step-by-step guide for adding new customers.
+  </Card>
+
+  <Card title="Creating an Offer" href="/user-guide/offers/creating-offer" icon="file-plus" horizontal="false">
+    How to create and configure a rental offer.
+  </Card>
+
+  <Card title="Offer-to-Cash Workflow" href="/role-guides/workflows/offer-to-cash" icon="arrow-right" horizontal="false">
+    The complete workflow from offer to payment.
+  </Card>
+
+  <Card title="Planning Overview" href="/user-guide/planning/overview" icon="calendar-days" horizontal="false">
+    Using the Gantt timeline to check trailer availability.
+  </Card>
+</Columns>

@@ -1,0 +1,78 @@
+---
+title: "Sending a contract via Outlook"
+description: "Send a contract to the customer via Microsoft Outlook email integration in ARMS."
+---
+
+ARMS integrates with Microsoft Outlook to let you send contract documents directly from the application. When you send a contract, the status changes from "Created" to "Sent".
+
+## What gets sent
+
+When you send a contract via email, the following items are attached:
+
+| Attachment | Description |
+|------------|-------------|
+| **Contract PDF** | The completed contract document generated from the selected template |
+| **Trailer registration document** | The trailer's official registration certificate (inschrijvingsbewijs) |
+
+<Callout kind="info">
+  Make sure the trailer's registration document is uploaded in the [trailer documents](/user-guide/fleet/documents) section before sending the contract. If it is missing, you need to upload it first.
+</Callout>
+
+## Sending a contract
+
+<Steps>
+  <Step title="Open the contract" icon="file-text" titleType="p">
+    Navigate to the contract detail screen from the [contract overview](/user-guide/contracts/overview).
+  </Step>
+
+  <Step title="Review the contract document" icon="eye" titleType="p">
+    On the **Contract visualization** tab, preview the generated PDF to make sure all details are correct.
+  </Step>
+
+  <Step title="Click Send via email" icon="mail" titleType="p">
+    Click the **Send via email** button. ARMS opens a dialog with the email details.
+  </Step>
+
+  <Step title="Review the email" icon="edit" titleType="p">
+    The dialog shows:
+    - **Recipient**: The contact's email address (from the contract header)
+    - **Subject**: Pre-filled based on the contract template
+    - **Body**: Default email text in the contact's language (see below)
+    - **Attachments**: Contract PDF and trailer registration document
+
+    You can edit the subject and body text before sending.
+  </Step>
+
+  <Step title="Confirm and send" icon="send" titleType="p">
+    Click **Send** to dispatch the email via Outlook. After confirmation, the contract status changes to "Sent".
+  </Step>
+</Steps>
+
+## Default email text
+
+The email body is pre-filled based on the contact's language setting. The default text asks the customer to review and return the signed contract.
+
+<Callout kind="tip">
+  The default email text per language is configurable in [Parameters](/user-guide/administration/parameters). Your administrator can customize the text templates for both Dutch and French.
+</Callout>
+
+## After sending
+
+Once the contract is sent:
+
+- The status changes to **Sent** and cannot be reverted to "Created"
+- The contract appears in the list with the "Sent" badge
+- If the customer does not respond within 7 days, the contract row turns **yellow** in the [contract overview](/user-guide/contracts/overview) as a follow-up reminder
+- You can manually update the status to **Accepted** or **Refused** based on the customer's response
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Contract lifecycle" href="/user-guide/contracts/lifecycle" icon="git-branch" horizontal="false">
+    See all status transitions and what happens after sending.
+  </Card>
+
+  <Card title="Contract overview" href="/user-guide/contracts/overview" icon="list" horizontal="false">
+    Monitor sent contracts and follow up on yellow-highlighted ones.
+  </Card>
+</Columns>
