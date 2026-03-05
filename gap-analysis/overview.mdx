@@ -154,7 +154,7 @@ Coverage of all Must/MVP requirements from PRD sections 6.A–6.I.
     | FR-INV-004 | Double billing prevention | Partial — day yes, month partial, km no |
     | FR-DEP-001 | Deposit+advance combined invoice | Missing — creates 2 separate invoices |
     | FR-DEP-002 | Advance due date calculation | Missing — wrong calculation |
-    | FR-DEP-003 | Negative lines (qty<0, price>0) | Missing — wrong convention |
+    | FR-DEP-003 | Negative lines (qty less than 0, price greater than 0) | Missing — wrong convention |
     | FR-DEP-004 | Saldo only from real invoices | Missing — no distinction |
     | FR-INV-MAN-001 | Manual invoice (linked to contract) | Implemented |
   </Tab>
@@ -303,7 +303,7 @@ Coverage of all Must/MVP requirements from PRD sections 6.A–6.I.
     |-----|----------------|----------------------|
     | Combined invoice | Deposit + advance on 1 invoice with 2 lines (FR-DEP-001) | Creates 2 separate invoices |
     | Due date | `contract_start - N days` (default 14) (FR-DEP-002) | Uses `today + 30 days` |
-    | Negative line convention | `qty < 0, price > 0` (Peppol compatible) (FR-DEP-003) | Uses `qty: 1, price: -amount` |
+    | Negative line convention | qty less than 0, price greater than 0 (Peppol compatible) (FR-DEP-003) | Uses `qty: 1, price: -amount` |
     | Saldo tracking | Only real invoices affect saldo (FR-DEP-004) | No distinction between proposals and invoices |
     | Default advance amount | day=30xprice, month=1xprice, km=6000kmxprice | Default 0, no auto-calculation |
 
@@ -577,7 +577,7 @@ Coverage of all Must/MVP requirements from PRD sections 6.A–6.I.
 
     ### 10.4 Negative line convention
 
-    **PRD** (FR-DEP-003): `qty < 0, price > 0` (Peppol compatible)
+    **PRD** (FR-DEP-003): qty less than 0, price greater than 0 (Peppol compatible)
     **Current**: `qty: 1, price: -amount`
     **Decision needed**: Which convention does Exact Online / Peppol require?
 
@@ -590,7 +590,7 @@ Coverage of all Must/MVP requirements from PRD sections 6.A–6.I.
     ### 10.6 Contract status auto-transitions
 
     **PRD** (FR-CON-005) implies multiple auto-transitions:
-    - Geaccepteerd to In verhuur (when start date <= today) — **implemented**
+    - Geaccepteerd to In verhuur (when start date is before or equal to today) — **implemented**
     - In verhuur to Te controleren (after real end date) — **not implemented**
     - Te controleren to Schadeverwerking (if damage) — **not implemented**, state doesn't exist
 
