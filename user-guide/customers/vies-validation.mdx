@@ -1,0 +1,102 @@
+---
+title: "VIES validation"
+description: "How ARMS validates VAT numbers through the EU VIES system and what to do when validation fails."
+---
+
+ARMS integrates with **VIES** (VAT Information Exchange System) to automatically validate customer VAT numbers and retrieve official company details. This ensures accurate customer data and reduces manual data entry.
+
+## What is VIES?
+
+VIES is a service operated by the European Commission that allows businesses to verify the validity of VAT numbers issued by EU member states. When you enter a VAT number in ARMS and click **Check VIES**, the system queries this service in real time.
+
+## How to use VIES validation
+
+<Steps>
+  <Step title="Enter the VAT number" icon="edit" titleType="p">
+    Type the customer's VAT number in the VAT number field. Use the standard format with the country prefix (e.g., `BE0123456789`, `NL123456789B01`, `DE123456789`).
+
+    <Callout kind="tip">
+      You can enter the VAT number with or without dots and spaces. ARMS normalizes the format automatically before querying VIES.
+    </Callout>
+  </Step>
+
+  <Step title="Click Check VIES" icon="shield-check" titleType="p">
+    Click the **Check VIES** button next to the VAT number field. The system queries the EU VIES database and returns one of three outcomes described below.
+  </Step>
+
+  <Step title="Review the result" icon="eye" titleType="p">
+    Check the validation message and verify the auto-filled fields if applicable.
+  </Step>
+</Steps>
+
+## Possible outcomes
+
+### Success: VAT number is valid
+
+A green confirmation message appears: *"VAT number valid -- details filled in."*
+
+The following fields are automatically populated from the VIES response:
+
+- Official name
+- Street and number
+- Postal code
+- City
+- Country
+
+All auto-filled fields remain fully editable. Review the data and adjust where needed before saving.
+
+<Callout kind="success">
+  A successful VIES check gives you confidence that the customer's VAT registration is active and the company details are up to date.
+</Callout>
+
+### Invalid: VAT number not found
+
+A red error message appears: *"VAT number not found in VIES."*
+
+This means the VAT number is not registered in the VIES database. The auto-fill fields remain empty. Possible causes:
+
+- The VAT number contains a typo
+- The number belongs to a non-EU country (VIES only covers EU member states)
+- The company's VAT registration has been deactivated
+
+You can still fill in all company details manually and save the customer.
+
+<Callout kind="alert">
+  Double-check the VAT number format with the customer before proceeding with manual entry. An incorrect VAT number can cause invoicing issues later.
+</Callout>
+
+### Unavailable: VIES service is down
+
+An orange warning message appears: *"VIES service temporarily unavailable -- fill in details manually."*
+
+The VIES service experiences occasional downtime for maintenance. The form remains fully editable so you can enter all fields manually.
+
+<Callout kind="info">
+  If VIES is unavailable, you can save the customer now and re-validate the VAT number later by editing the customer and clicking **Check VIES** again.
+</Callout>
+
+## VAT number format reference
+
+| Country | Format | Example |
+|---------|--------|---------|
+| Belgium | BE + 10 digits | `BE0123456789` |
+| Netherlands | NL + 9 digits + B + 2 digits | `NL123456789B01` |
+| Germany | DE + 9 digits | `DE123456789` |
+| France | FR + 2 chars + 9 digits | `FR12345678901` |
+| Luxembourg | LU + 8 digits | `LU12345678` |
+
+<Callout kind="tip">
+  Always include the two-letter country prefix. Without it, VIES cannot identify which national database to query.
+</Callout>
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Creating a customer" href="/user-guide/customers/creating-customer" icon="user-plus" horizontal="false">
+    Full procedure for adding a customer with VIES validation.
+  </Card>
+
+  <Card title="Customer overview" href="/user-guide/customers/overview" icon="list" horizontal="false">
+    Browse and filter your complete customer list.
+  </Card>
+</Columns>

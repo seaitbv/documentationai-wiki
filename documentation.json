@@ -270,20 +270,6 @@
         ]
       },
       {
-        "tab": "Gap Analysis",
-        "icon": "search",
-        "groups": [
-          {
-            "group": "PRD Gap Analysis",
-            "icon": "clipboard-check",
-            "expandable": false,
-            "pages": [
-              { "title": "Overview", "path": "gap-analysis/overview", "icon": "list-checks" }
-            ]
-          }
-        ]
-      },
-      {
         "tab": "Changelog",
         "icon": "history",
         "groups": [

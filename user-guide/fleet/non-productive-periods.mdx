@@ -1,0 +1,79 @@
+---
+title: "Non-productive periods"
+description: "Record and manage periods when a trailer is unavailable for rental due to maintenance, damage, or other reasons."
+---
+
+Non-productive (NP) periods track the times when a trailer is unavailable for rental. You manage NP periods from the Non-productive tab on the [trailer detail screen](/user-guide/fleet/trailer-details), or directly from the [planning view](/user-guide/planning/creating-np-periods).
+
+## NP period list
+
+The NP period list shows all recorded downtime for the trailer.
+
+| Column | Description |
+|--------|-------------|
+| **Start date** | First day the trailer is unavailable |
+| **End date** | Last day the trailer is unavailable |
+| **Reason** | Category for the downtime (see below) |
+| **Duration** | Calculated number of days between start and end date |
+
+## Reason categories
+
+Each NP period must be assigned a reason from the following categories:
+
+| Reason | When to use |
+|--------|-------------|
+| **Damage** | Trailer is out of service due to damage or awaiting repair |
+| **Inspection** | Trailer is undergoing a scheduled technical inspection |
+| **Maintenance** | Routine or preventive maintenance work |
+| **Seasonal storage** | Trailer is stored during an off-peak period |
+
+<Callout kind="info">
+  Administrators can configure additional reason categories through the [Parameters](/user-guide/administration/parameters) module.
+</Callout>
+
+## Adding an NP period
+
+<Steps>
+  <Step title="Open the NP period form" icon="plus" titleType="p">
+    Click **Add NP period** on the Non-productive tab. The form opens with date and reason fields.
+  </Step>
+
+  <Step title="Set the start and end dates" icon="calendar" titleType="p">
+    Select the **Start date** and **End date** for the period. The start date must be before the end date.
+  </Step>
+
+  <Step title="Select a reason" icon="tag" titleType="p">
+    Choose the appropriate reason from the dropdown menu.
+  </Step>
+
+  <Step title="Save the NP period" icon="save" titleType="p">
+    Click **Save** to record the period. The duration is calculated automatically.
+  </Step>
+</Steps>
+
+## Validation rules
+
+ARMS validates every NP period before saving:
+
+- **Start date must be before end date** - The system rejects periods where the start date is on or after the end date.
+- **No overlap with active contracts** - An NP period cannot overlap with an active rental contract for the same trailer. If a conflict exists, an error message appears showing the conflicting contract reference and its dates.
+
+<Callout kind="alert">
+  If you see a contract conflict error, check the [Contracts tab](/user-guide/fleet/trailer-details#tab-contracts) on the trailer detail screen to review the overlapping contract before adjusting your NP period dates.
+</Callout>
+
+## NP periods on the planning timeline
+
+NP periods appear as gray bars on the [planning timeline](/user-guide/planning/reading-timeline). You can also [create NP periods directly from the planning view](/user-guide/planning/creating-np-periods).
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Planning overview" href="/user-guide/planning/overview" icon="gantt-chart" horizontal="false">
+    See NP periods in the timeline context.
+  </Card>
+
+  <Card title="Create from planning" href="/user-guide/planning/creating-np-periods" icon="calendar-plus" horizontal="false">
+    Add NP periods directly from the planning view.
+  </Card>
+</Columns>
