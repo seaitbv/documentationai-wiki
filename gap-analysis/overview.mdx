@@ -1,0 +1,635 @@
+---
+title: "Gap Analysis: PRD v1.3.1 vs Current Implementation"
+description: "Comprehensive gap analysis comparing ARMS PRD v1.3.1 against the current implementation, organized by category with priority rankings and requirement coverage."
+---
+
+## Overview
+
+This gap analysis compares PRD v1.3.1 (04-03-2026) against the current ARMS implementation using a 6-perspective methodology:
+
+1. **Functional** — feature completeness against PRD requirements
+2. **Technical** — code-level implementation gaps
+3. **Solution Architecture** — structural and integration gaps
+4. **Database** — schema, constraints, and seed data gaps
+5. **Next.js** — frontend-specific gaps (UI/UX, navigation, i18n)
+6. **Devil's Advocate** — contradictions, ambiguities, and stakeholder decisions
+
+## Priority summary
+
+<Callout kind="danger">
+  **9 critical items** are Must/MVP requirements that are not implemented at all. These represent missing features that block PRD compliance.
+</Callout>
+
+<Callout kind="alert">
+  **8 high-priority items** are Must/MVP requirements that are only partially implemented. These require targeted fixes to close the gap.
+</Callout>
+
+### Critical — Must/MVP, not implemented
+
+| # | Gap | PRD Ref | Category |
+|---|-----|---------|----------|
+| 1 | KM invoicing — entire billing unit missing | FR-INVP-001, Section 7.4 | Business Logic |
+| 2 | Creditworthiness API — no external integration | FR-CUST-002 | Integration |
+| 3 | Audit log — no table, no viewer | FR-AUD-001 | Database / Screen |
+| 4 | Communication log — no tracking | FR-CLOG-001 | Database / Screen |
+| 5 | Global document library — no cross-search | FR-DOC-002 | Screen |
+| 6 | Notification inbox — no standalone page | FR-NOTIF-001 | Screen |
+| 7 | User/Role management — no admin UI | SEC-RBAC-001 | Screen |
+| 8 | Company/Location management — no admin UI | FR-ORG-001 | Screen |
+| 9 | `contact_language` enum missing EN — blocks EN templates/contacts | FR-CUST-003 | Database / i18n |
+
+### High — Must/MVP, partially implemented
+
+| # | Gap | PRD Ref | Category |
+|---|-----|---------|----------|
+| 10 | Deposit/advance: combined invoice + due date + negative line convention | FR-DEP-001–004 | Business Logic |
+| 11 | Contract status: Schadeverwerking state missing | FR-CON-005 | Business Logic |
+| 12 | Invoice status: exported/failed statuses missing | FR-INV-002 | Database |
+| 13 | Computed Verhuurstatus badge | FR-FLEET-001/003 | UI/UX |
+| 14 | PDF generation for offers/contracts | FR-COMM-001, FR-CON-006 | Integration |
+| 15 | Outlook sent marking + logging | TR-OUTLOOK-001 | Integration |
+| 16 | Exact export retry + idempotency | TR-EXACT-001 | Integration |
+| 17 | Transics import log persistence | TR-TRANS-001 | Integration |
+
+### Medium — Should/MVP or structural
+
+| # | Gap | PRD Ref | Category |
+|---|-----|---------|----------|
+| 18 | Planning zoom +/- buttons | FR-PLAN-002 | UI/UX |
+| 19 | Tree-structure navigation | KS3-KS4 | UI/UX |
+| 20 | Standalone screens: Keuringen, KM overview, Import/Export, Integrations, Service orders | Bijlage B | Screen |
+| 21 | Granular RBAC per module (not just admin/non-admin) | SEC-RBAC-001 | Security |
+| 22 | Company-scoped RLS | NFR-SEC-001 | Security |
+| 23 | KM yearly allowance calculation | Section 7.1 | Business Logic |
+
+## Requirement coverage matrix
+
+Coverage of all Must/MVP requirements from PRD sections 6.A–6.I.
+
+**Legend:** Implemented = fully done | Partial = partially implemented | Missing = not implemented
+
+<Tabs>
+  <Tab title="6.A Dashboard" icon="layout-dashboard">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-DASH-001 | KPI tiles with counts | Implemented |
+    | FR-DASH-002 | KPI click to filtered list | Implemented |
+    | FR-DASH-003 | Alerts list (Should) | Partial — activity stream exists but not priority-sorted |
+    | FR-NOTIF-001 | Notification inbox with status/filters | Missing — sidebar panel only |
+    | FR-NOTIF-002 | Deep link from notification | Partial — links exist but no full inbox |
+  </Tab>
+
+  <Tab title="6.B Planning" icon="calendar">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-PLAN-001 | Timeline with period selection | Partial — date range but no 1/2/3 month presets |
+    | FR-PLAN-002 | Zoom +/- buttons (Should) | Missing — auto-zoom only |
+    | FR-PLAN-003 | Group by type/company + filters | Partial — type grouping yes, company no |
+    | FR-PLAN-004 | Click to popup to detail | Implemented |
+    | FR-PLAN-005 | Offers as "optie" | Implemented |
+    | FR-PLAN-006 | Contract status to planning | Implemented |
+    | FR-PLAN-007 | Post-drop-off yellow highlight | Implemented |
+    | FR-PLAN-008 | Inspection milestone | Implemented |
+  </Tab>
+
+  <Tab title="6.C Fleet" icon="truck">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-FLEET-001 | Display name + computed Verhuurstatus | Partial — display name yes, computed badge no |
+    | FR-FLEET-002 | Vlootstatus lifecycle | Implemented |
+    | FR-FLEET-003 | Verhuurstatus time-dependent | Missing — not computed |
+    | FR-FLEET-004 | Visual icons/badges (Should) | Partial |
+    | FR-FLEET-005 | Warning icons with tooltip | Partial |
+    | FR-FLEET-006 | Trailer detail tabs | Implemented |
+    | FR-FLEET-007 | Drag-drop documents with type | Implemented |
+    | FR-FLEET-008 | Inspection warnings | Implemented |
+    | FR-FLEET-009 | KM validation (decline/override) | Partial |
+    | FR-FLEET-010 | Non-productive period overlap | Implemented |
+  </Tab>
+
+  <Tab title="6.D Customers" icon="users">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-CUST-001 | VIES check + auto-fill | Implemented |
+    | FR-CUST-002 | Creditworthiness API | Missing |
+    | FR-CUST-003 | Contact language NL/FR/EN | Partial — NL/FR only |
+    | FR-CUST-004 | VAT% + payment conditions defaults | Implemented |
+  </Tab>
+
+  <Tab title="6.E Offers" icon="file-text">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-OFFER-001 | Internal/external description, due date | Implemented |
+    | FR-OFFER-002 | Status flow (created/sent/approved/rejected) | Implemented |
+    | FR-OFFER-003 | Company + template per language | Partial — no EN templates |
+    | FR-OFFER-004 | Unit pricing, discount on rental only | Implemented |
+    | FR-OFFER-005 | Trailer requirements filter (Should) | Implemented |
+    | FR-COMM-001 | Mail offerte (Outlook draft + PDF) | Partial — draft yes, PDF and sent marking no |
+  </Tab>
+
+  <Tab title="6.F Contracts" icon="file-signature">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-CON-001 | Create from offer or scratch | Implemented |
+    | FR-CON-002 | Trailer required, estimated dates required | Implemented |
+    | FR-CON-003 | Conflict warning (not hard block) | Implemented |
+    | FR-CON-004 | Invoice-to (default customer) | Implemented |
+    | FR-CON-005 | Status flow (incl. schadeverwerking) | Partial — missing schadeverwerking state |
+    | FR-CON-006 | Mail contract (draft + PDF + inschrijvingsbewijs) | Partial — draft yes, PDF and attachment no |
+    | FR-CON-007 | Non-driving days (unit=day only) | Implemented |
+    | FR-CON-008 | KM per non-driving day + threshold | Partial |
+    | FR-CON-009 | Post-drop-off check + damage + repair | Partial — boolean fields only, no dedicated table |
+  </Tab>
+
+  <Tab title="6.G Invoicing" icon="receipt">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-INVP-001 | Proposals per unit/period | Partial — day/month only, no KM |
+    | FR-INVP-002 | Proposal line details | Implemented (for day/month) |
+    | FR-INVP-003 | KM red marking for missing data | Missing |
+    | FR-INVP-004 | Batch generate from proposals | Implemented |
+    | FR-INVP-005 | NDD not applicable for km/month | Implemented |
+    | FR-INV-002 | Status workflow (new/exported/failed) | Partial — missing exported/failed |
+    | FR-INV-003 | Exact status sync (Should) | Missing |
+    | FR-INV-004 | Double billing prevention | Partial — day yes, month partial, km no |
+    | FR-DEP-001 | Deposit+advance combined invoice | Missing — creates 2 separate invoices |
+    | FR-DEP-002 | Advance due date calculation | Missing — wrong calculation |
+    | FR-DEP-003 | Negative lines (qty<0, price>0) | Missing — wrong convention |
+    | FR-DEP-004 | Saldo only from real invoices | Missing — no distinction |
+    | FR-INV-MAN-001 | Manual invoice (linked to contract) | Implemented |
+  </Tab>
+
+  <Tab title="6.H Docs & Audit" icon="archive">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | FR-DOC-001 | Drag-drop upload on all tabs | Implemented |
+    | FR-DOC-002 | Global document library | Missing |
+    | FR-CLOG-001 | Communication log | Missing |
+    | FR-AUD-001 | Audit log with filters + before/after | Missing |
+  </Tab>
+
+  <Tab title="6.I Integrations" icon="plug">
+    | ID | Requirement | Status |
+    |----|------------|--------|
+    | TR-EXACT-001 | Exact export with retry | Partial — export exists, no retry |
+    | TR-EXACT-002 | Exact API sync (Should) | Missing |
+    | TR-OUTLOOK-001 | Outlook draft + logging | Partial — draft yes, no sent logging |
+    | TR-VIES-001 | VIES validation | Implemented |
+    | TR-TRANS-001 | Transics import with log | Partial — import exists, no persistent log |
+    | TR-REPAIR-001 | Repair order link + status | Partial — text ref only |
+    | FR-SET-001 | Parameters screen | Implemented |
+    | FR-MD-001 | Dropdown manager | Implemented |
+    | FR-TPL-001 | Template management | Implemented |
+    | FR-ORG-001 | Company + location management | Missing |
+    | SEC-RBAC-001 | Role-based access | Partial — sidebar filtering yes, granular per-module write no |
+  </Tab>
+</Tabs>
+
+## Detailed gap analysis
+
+<ExpandableGroup>
+  <Expandable title="1. Missing screens" default-open="false">
+    Cross-referenced against Bijlage B (31 screens). Current implementation has ~16 screens; 10 are fully missing, 5 are partially implemented.
+
+    ### Completely missing screens (10)
+
+    | # | PRD Screen | PRD Ref | Expected Route | Notes |
+    |---|-----------|---------|---------------|-------|
+    | 1 | Keuringen overzicht (standalone) | Bijlage B #6 | `/inspections` | Only exists as tab within trailer detail. No cross-fleet inspection overview. |
+    | 2 | Kilometerstanden overzicht (standalone) | Bijlage B #7 | `/km-registrations` | Only exists as tab within trailer detail. No cross-fleet KM overview. |
+    | 3 | Documentenbibliotheek (global) | Bijlage B #20, FR-DOC-002 | `/documents` | Documents only attached per-entity. No global cross-search library. |
+    | 4 | Communicatielog | Bijlage B #21, FR-CLOG-001 | `/communication` | No communication log page. No tracking of Outlook drafts. |
+    | 5 | Integraties — Exact Online | Bijlage B #22, TR-EXACT-001 | `/integrations/exact` | No integration config screen. Export queue, retry, error visibility missing. |
+    | 6 | Service/Repair order koppeling | Bijlage B #24, TR-REPAIR-001 | `/service-orders` | Only a `repair_order_ref` text field on contract. No dedicated screen. |
+    | 7 | Bedrijven beheer (Atrac/Urbain) | Bijlage B #27, FR-ORG-001 | `/companies` | Companies loaded from DB but no admin CRUD UI. |
+    | 8 | Locaties beheer (pick-up locations) | Bijlage B #28, FR-ORG-001 | `/locations` | Locations used in dropdowns but no admin management UI. |
+    | 9 | Gebruikers & Rollen | Bijlage B #30, SEC-RBAC-001 | `/users` | `user_profile` table exists but no admin UI. |
+    | 10 | Auditlog | Bijlage B #31, FR-AUD-001 | `/audit` | No audit log viewer. No `audit_log` table. |
+
+    ### Partially implemented screens (5)
+
+    | # | PRD Screen | PRD Ref | Current State | Gap |
+    |---|-----------|---------|--------------|-----|
+    | 1 | Meldingen center | FR-NOTIF-001/002 | Sidebar panel on dashboard | PRD requires standalone inbox with status, filters, and deep links. |
+    | 2 | Facturatievoorstellen | FR-INVP-001–005 | Tab within invoices page | PRD specifies separate screen. |
+    | 3 | Facturen genereren (batch) | FR-INVP-004 | Embedded in proposals tab | PRD specifies dedicated batch generation screen. |
+    | 4 | Import/Export Kilometerstanden | TR-TRANS-001 | Modal dialog within fleet | PRD specifies standalone page with mapping, preview, validation, and persistent log. |
+    | 5 | Stamdata beheer (dropdown manager) | FR-MD-001 | Section within Parameters page | Functional but not separately navigable. |
+  </Expandable>
+
+  <Expandable title="2. Database schema gaps" default-open="false">
+    ### Missing columns
+
+    | Table | Missing Column | PRD Ref | Type | Notes |
+    |-------|---------------|---------|------|-------|
+    | `customer` | `floor` | Bijlage A #7 | text | Address field for floor/verdieping. |
+    | `contract` | `damage_description` | FR-CON-009 | text | `damage_found` boolean exists but no description field. |
+    | `contract` | `checked_date` | FR-CON-009 | date | `checked_after_return` boolean exists but no date. |
+    | `notification_log` | `status` values | FR-NOTIF-001 | — | PRD requires new/gelezen/afgehandeld. Only `'sent'` exists. |
+    | `notification_log` | `owner` | FR-NOTIF-001 | uuid | PRD requires filter by owner. No ownership column. |
+
+    ### Enum/constraint gaps
+
+    | Enum | Current Values | PRD Requires | Gap |
+    |------|---------------|-------------|-----|
+    | `contact_language` | `'NL', 'FR'` | `'NL', 'FR', 'EN'` | EN missing. Affects contact, offer, contract, and template tables. |
+    | `entity_type` | `'trailer', 'contract', 'offer', 'inspection'` | + `'customer', 'invoice'` | Documents cannot be attached to customers or invoices. |
+    | Contract status (seed) | 7 values | + `Schadeverwerking` | Damage processing state missing. |
+    | Invoice status (seed) | 4 values | + `exported`, `failed` | Missing statuses for Exact Online lifecycle. |
+
+    ### Missing seed data
+
+    | Category | Gap |
+    |----------|-----|
+    | `document_type` | Only 3 types seeded. PRD implies more (e.g., "Overig"). |
+    | `ADVANCE_DUE_DATE_OFFSET_DAYS` | Configurable offset for advance invoice due date. Parameter does not exist. |
+    | EN email templates | `OFFER_EMAIL_SUBJECT_EN`, `OFFER_EMAIL_BODY_EN`, `CONTRACT_EMAIL_SUBJECT_EN`, `CONTRACT_EMAIL_BODY_EN` all missing. |
+  </Expandable>
+
+  <Expandable title="3. Missing tables" default-open="false">
+    | # | Table | PRD Ref | Purpose | Priority |
+    |---|-------|---------|---------|----------|
+    | 1 | `audit_log` | FR-AUD-001 | Track who/what/when with before/after values. GDPR-limited PII. | Must/MVP |
+    | 2 | `communication_log` | FR-CLOG-001 | Track Outlook drafts, sent marking, linked to offer/contract. | Must/MVP |
+    | 3 | `import_log` | TR-TRANS-001 | Persist import results: success/fail per record, timestamp, user, file reference. | Must/MVP |
+    | 4 | `contract_damage_control` | FR-CON-009 | Post-return inspection details, damage records, repair order linking. | Should |
+    | 5 | `repair_order` | TR-REPAIR-001 | External repair order references with status. Currently only `repair_order_ref` text. | Must/MVP |
+
+    <Callout kind="info">
+      **`customer_contact` relationship**: PRD Bijlage A implies a separate linking table (M:N), but current schema uses 1:N (`contact.customer_id` FK). If the business requires one contact to serve multiple customers, a junction table is needed. Requires stakeholder clarification.
+    </Callout>
+
+    <Callout kind="info">
+      **`document_link` table**: PRD mentions "Document + DocumentLink". Current uses polymorphic `entity_type + entity_id` on the `document` table. This works for 1:1 linking but does not support linking one document to multiple entities. Acceptable if cross-linking is not required.
+    </Callout>
+  </Expandable>
+
+  <Expandable title="4. Business logic gaps" default-open="false">
+    ### KM invoicing — not implemented
+
+    <Callout kind="danger">
+      **Severity: Critical** — entire billing unit missing. The `generateInvoiceProposals` function only accepts `unitType: "day" | "month"`. KM is entirely excluded.
+    </Callout>
+
+    Missing functionality:
+    - KM proposal generation (determine start/end km from `km_registration` table)
+    - KM billing calculation (`km_driven x unit_price_rental`)
+    - Red marking when km registration data is missing near billing period boundaries (FR-INVP-003)
+    - `invoice_km_lock` creation during KM invoicing (table exists but never populated)
+    - Exclusion of non-driving days for KM contracts (FR-INVP-005)
+    - Exclusion of KM allowance for km-unit contracts (Section 7.4)
+
+    ### KM yearly allowance — not implemented
+
+    <Callout kind="alert">
+      **Severity: High** — revenue-relevant calculation missing. Parameters exist (`KM_YEARLY_MAX = 100000`, `KM_SURPLUS_PRICE_EUR = 0.30`) but no code consumes them.
+    </Callout>
+
+    Missing functionality:
+    - Annual KM usage computation per contract/trailer
+    - Comparison against 100,000 km threshold
+    - Surcharge calculation at 0.30 EUR/km for overage
+    - Surcharge invoice line generation
+
+    ### Forfait logic
+
+    <Callout kind="success">
+      **Implemented.** Forfait correctly uses total contract duration (not invoice period). Parameters `FORFAIT_1_DAY_EUR` (120) and `FORFAIT_2_DAYS_EUR` (170) are configurable.
+    </Callout>
+
+    ### Deposit/advance gaps (Section 7.6)
+
+    | Gap | PRD Requirement | Current Implementation |
+    |-----|----------------|----------------------|
+    | Combined invoice | Deposit + advance on 1 invoice with 2 lines (FR-DEP-001) | Creates 2 separate invoices |
+    | Due date | `contract_start - N days` (default 14) (FR-DEP-002) | Uses `today + 30 days` |
+    | Negative line convention | `qty < 0, price > 0` (Peppol compatible) (FR-DEP-003) | Uses `qty: 1, price: -amount` |
+    | Saldo tracking | Only real invoices affect saldo (FR-DEP-004) | No distinction between proposals and invoices |
+    | Default advance amount | day=30xprice, month=1xprice, km=6000kmxprice | Default 0, no auto-calculation |
+
+    ### Contract status flow gaps (FR-CON-005)
+
+    | Gap | Details |
+    |-----|---------|
+    | Missing "Schadeverwerking" state | PRD: Te controleren to Schadeverwerking (if damage) to Afgerond. Current: Te controleren to Afgerond directly. |
+    | No auto-transition to "Te controleren" | PRD implies auto-transition when `rental_end_real` passes. Edge function only handles Geaccepteerd to In verhuur. |
+    | No auto-derived "Verhuurstatus" | Trailer status should be computed from active contracts. Currently manually set. |
+
+    ### Day invoicing
+
+    <Callout kind="success">
+      **Fully implemented.** Overlap calculation, non-driving day deduction, discount on rental only, forfait based on total contract duration all correct.
+    </Callout>
+
+    ### Month invoicing
+
+    <Callout kind="success">
+      **Mostly implemented.** Pro-rata with `ceilTo2Decimals(daysUsed / daysInMonth)` correct. Uses generic period locks instead of month-specific interval tracking (functionally equivalent).
+    </Callout>
+
+    ### Double billing prevention
+
+    | Unit | Status | Gap |
+    |------|--------|-----|
+    | Day | Implemented | Period locks working, race condition guard present |
+    | Month | Partial | Uses generic period locks, not month-specific intervals |
+    | KM | Not implemented | `invoice_km_lock` table exists but never populated |
+    | Exact export idempotency | Not implemented | No idempotency key; retry may create duplicates |
+  </Expandable>
+
+  <Expandable title="5. UI/UX gaps" default-open="false">
+    ### Planning (FR-PLAN-001–008)
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Period selection 1/2/3 months + custom | FR-PLAN-001 | Partial | No preset buttons (1m/2m/3m) |
+    | Zoom +/- buttons | FR-PLAN-002 | Missing | Auto-calculated from period span only |
+    | Trailer grouping by type and/or company | FR-PLAN-003 | Partial | Type grouping yes, company grouping no |
+    | Event click to popup to "toon meer" | FR-PLAN-004 | Implemented | |
+    | Offer as "optie" | FR-PLAN-005 | Implemented | |
+    | Post-drop-off yellow highlight | FR-PLAN-007 | Implemented | |
+    | Inspection milestone | FR-PLAN-008 | Implemented | |
+    | Conflict warning (not hard block) | KS7-KS13 | Implemented | |
+
+    ### Fleet (FR-FLEET-001–010)
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Display "Referentie - Nummerplaat" | FR-FLEET-001 | Implemented | |
+    | Computed "Verhuurstatus vandaag" badge | FR-FLEET-001/003 | Missing | Status is from dropdown (manual), not computed from active contracts. |
+    | Vlootstatus (lifecycle) | FR-FLEET-002 | Implemented | |
+    | Visual icons/badges for properties | FR-FLEET-004 | Partial | Not comprehensive |
+    | Warning icons with tooltip | FR-FLEET-005 | Partial | Inspection warnings exist; missing km/conflict warnings in list |
+    | Drag-drop documents with type tagging | FR-FLEET-007 | Implemented | |
+    | KM validation (decline block/override) | FR-FLEET-009 | Partial | Override-with-reason flow unclear |
+
+    ### Invoicing (FR-INVP, FR-INV, FR-DEP)
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | KM proposal red marking for missing data | FR-INVP-003 | Missing | KM invoicing not implemented |
+    | Multiselect batch generation | FR-INVP-004 | Implemented | |
+    | Manual invoice (linked to contract) | FR-INV-MAN-001 | Implemented | |
+    | Invoice status workflow (new/exported/failed) | FR-INV-002 | Partial | Missing exported/failed statuses |
+    | Exact status sync (paid/unpaid) | FR-INV-003 | Not implemented | Field exists but no sync mechanism |
+
+    ### Navigation
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Tree-structure grouping | KS3-KS4 | Missing | Flat sidebar. PRD requires nested groups. |
+    | Contacts in sidebar | — | Missing | Contacts only accessible via customer detail or direct URL. |
+    | Admin screens in sidebar | — | Missing | No nav items for: Documents library, Communication log, Integrations, Import/Export, Companies, Locations, Users & Roles, Auditlog. |
+
+    ### Notifications (FR-NOTIF-001–003)
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Standalone inbox page | FR-NOTIF-001 | Missing | Only a sidebar panel on dashboard |
+    | Status (new/read/handled) | FR-NOTIF-001 | Missing | No status management |
+    | Filters (type/status/period/owner/company) | FR-NOTIF-001 | Missing | No filtering |
+    | Deep link to object | FR-NOTIF-002 | Partial | Links exist in dashboard panel but not in a full inbox context |
+  </Expandable>
+
+  <Expandable title="6. Integration gaps" default-open="false">
+    ### Exact Online API (TR-EXACT-001/002)
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Export factuurdata | TR-EXACT-001 | Partial | JSON serialization exists. MVP is client-side download, not API POST. |
+    | Foutafhandeling + retry | TR-EXACT-001 | Missing | No retry logic, no error queue, no per-record error visibility |
+    | Idempotent export | Section 9.3 | Missing | No idempotency key. `exactonline_ref` is a simple string, not a dedup key. |
+    | External reference storage | TR-EXACT-001 | Partial | Stores self-generated ref, not Exact-returned ID |
+    | Status sync (paid/unpaid) | TR-EXACT-002 | Missing | No mechanism to pull payment status |
+    | Integration config screen | Bijlage B #22 | Missing | No admin UI for connection settings |
+
+    ### Transics import (TR-TRANS-001)
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Excel upload | TR-TRANS-001 | Implemented | XLSX parsing with `xlsx` library |
+    | Column mapping | TR-TRANS-001 | Implemented | Dynamic field mapping UI |
+    | Preview + validation | TR-TRANS-001 | Implemented | Decline detection, date validation, duplicates |
+    | Import log (persistent) | TR-TRANS-001 | Missing | No `import_log` table; results are transient |
+    | Standalone page | Bijlage B #23 | Missing | Currently a modal dialog within fleet |
+
+    ### Creditworthiness API (FR-CUST-002)
+
+    <Callout kind="danger">
+      **Not implemented.** Only a free-text `creditworthiness` field on customer. No API integration (Companyweb etc.), no result logging, no automated checks.
+    </Callout>
+
+    ### PDF generation (FR-COMM-001, FR-CON-006)
+
+    <Callout kind="alert">
+      **Not implemented.** Template upload/storage works, but no PDF rendering engine exists. Blocks both offerte and contract PDF generation, and attachment to Outlook drafts.
+    </Callout>
+
+    ### VIES integration (TR-VIES-001)
+
+    <Callout kind="success">
+      **Fully implemented.** SOAP-based VIES check, address parsing, timeout/retry, UI integration. No gaps.
+    </Callout>
+
+    ### Outlook integration (TR-OUTLOOK-001)
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Generate draft with attachments | TR-OUTLOOK-001 | Implemented | Graph API integration |
+    | "Sent" manual marking + logging | TR-OUTLOOK-001, KS14-KS20 | Missing | No mechanism to mark draft as sent. No communication log entry. |
+    | Inschrijvingsbewijs as contract attachment | FR-CON-006 | Missing | Contract email does not auto-attach registration certificate |
+  </Expandable>
+
+  <Expandable title="7. i18n gaps" default-open="false">
+    ### UI language support
+
+    | Language | Status | Gap |
+    |----------|--------|-----|
+    | NL (Dutch) | Implemented | `messages/nl.json` (~41KB) |
+    | FR (French) | Implemented | `messages/fr.json` (~43KB) |
+    | EN (English) | Missing | No `messages/en.json`. PRD says UI is NL/FR only (MVP), but EN needed for templates/contacts. |
+
+    ### Contact/template language support
+
+    | Feature | PRD Ref | Status | Gap |
+    |---------|---------|--------|-----|
+    | Contact language NL/FR/EN | FR-CUST-003, KS14-KS20 | Missing EN | `contact_language` enum = `('NL', 'FR')` |
+    | Templates per language NL/FR/EN | FR-TPL-001 | Missing EN | `document_template.language` uses `contact_language` enum |
+    | Email templates EN | KS14-KS20 | Missing | No EN email subject/body parameters seeded |
+
+    ### Locales config
+
+    Current `i18n/config.ts`:
+
+    ```typescript
+    export const locales = ["nl", "fr"] as const;
+    ```
+
+    <Callout kind="info">
+      Does not include `"en"` even if UI-EN is deferred. The `contact_language` enum and template system need EN independently of UI language.
+    </Callout>
+  </Expandable>
+
+  <Expandable title="8. Security/RBAC gaps" default-open="false">
+    ### Role model
+
+    PRD defines 5 roles: Admin, Verhuurmedewerker (commercial), Vlootbeheerder (fleet_manager), Facturatie (accounting), Management (read_only).
+
+    Current implementation uses: `admin`, `commercial`, `accounting`, `fleet_manager`, `read_only`.
+
+    <Callout kind="info">
+      Role names map but "Management" = `read_only` is a semantic mismatch. Management may need KPI/reporting access beyond pure read-only. Requires stakeholder clarification.
+    </Callout>
+
+    ### Page-level RBAC
+
+    | Gap | Details |
+    |-----|---------|
+    | Binary admin check | Most pages only check `isAdmin` for write permissions. Full 5-role matrix not enforced at component level. |
+    | Missing module-level write guards | `commercial` should write offers/contracts but not fleet. `fleet_manager` should write fleet but not invoices. Currently: admin = full write, non-admin = limited write. |
+    | No per-company data segregation in UI | RLS policies exist at DB level, but the UI does not filter by user's company. All users see all companies' data. |
+
+    ### RLS policy gaps
+
+    | Gap | Details |
+    |-----|---------|
+    | Missing `audit_log` RLS | Table doesn't exist yet. Needs admin-only write, role-based read. |
+    | Missing `communication_log` RLS | Table doesn't exist. Needs appropriate policies. |
+    | Missing `import_log` RLS | Table doesn't exist. Needs admin + fleet_manager policies. |
+    | Document template RLS inconsistency | Uses direct subquery instead of `get_user_role()` function. Functionally correct but inconsistent. |
+    | No company-scoped RLS | PRD requires multi-company segregation (NFR-SEC-001). Current RLS checks role but not company assignment. |
+
+    ### Missing security features
+
+    | Feature | PRD Ref | Status |
+    |---------|---------|--------|
+    | Pen-test/authorization tests | NFR-SEC-001 | No test suite for cross-company access attempts |
+    | GDPR compliance in logs | FR-AUD-001 | No audit log exists; no PII filtering strategy |
+    | Session timeout | — | Parameter exists but enforcement unclear |
+  </Expandable>
+
+  <Expandable title="9. Data integrity gaps" default-open="false">
+    ### NOT NULL constraints vs PRD mandatory fields
+
+    | Table | Column | PRD Says | Current | Gap |
+    |-------|--------|----------|---------|-----|
+    | `customer` | `vat_number` | Mandatory | nullable | PRD Bijlage A #3 |
+    | `customer` | `official_name` | Mandatory | nullable | PRD Bijlage A #4 |
+    | `customer` | `street` | Mandatory | nullable | PRD Bijlage A #5 |
+    | `customer` | `number` | Mandatory | nullable | PRD Bijlage A #6 |
+    | `customer` | `postal_code` | Mandatory | nullable | PRD Bijlage A #8 |
+    | `customer` | `city` | Mandatory | nullable | PRD Bijlage A #9 |
+    | `customer` | `country` | Mandatory | nullable | PRD Bijlage A #10 |
+    | `customer` | `vat_percentage` | Mandatory | nullable | PRD Bijlage A #11 |
+    | `customer` | `payment_conditions_id` | Mandatory | nullable | PRD Bijlage A #12 |
+
+    <Callout kind="info">
+      These are deliberately nullable to support the workflow where a customer is created first (name + VAT) and VIES fills the rest. A compromise: enforce NOT NULL at the application layer before saving a "complete" customer, or add an `is_complete` flag.
+    </Callout>
+
+    ### Missing unique indexes
+
+    | Table | Column(s) | PRD Requirement | Status |
+    |-------|-----------|----------------|--------|
+    | `customer` | `vat_number` | Implied unique (business key) | Index exists but **not UNIQUE**. Duplicate VAT numbers possible. |
+    | `km_registration` | `(plate_number, registration_date)` | Implied unique (one reading per day) | No unique constraint. Duplicate entries per day possible. |
+    | `invoice` | `invoice_number` | Should be unique per company | Index exists but **not UNIQUE**. Duplicate invoice numbers possible. |
+
+    ### Date validation gaps
+
+    | Validation | PRD Ref | Status | Gap |
+    |-----------|---------|--------|-----|
+    | Non-driving days within contract period | FR-CON-007 | Implemented | Server-side trigger validates |
+    | Non-productive period overlap | FR-FLEET-010 | Implemented | EXCLUDE constraint prevents overlap |
+    | KM monotonic increase | FR-FLEET-009 | Partial | Validation in import utils but no DB constraint. Manual entry may not enforce. |
+    | Contract period overlap per trailer | FR-CON-003 | Partial | Warning in UI (planning) but no server-side EXCLUDE constraint |
+
+    ### Cascade/referential integrity
+
+    | Relationship | Current | Concern |
+    |-------------|---------|---------|
+    | `contract.offer_id` to `offer` | No CASCADE | Deleting an offer with linked contracts leaves orphan reference. Should be RESTRICT. |
+    | `invoice.contract_id` to `contract` | nullable | PRD says invoices must always be linked to a contract (FR-INV-MAN-001). |
+  </Expandable>
+
+  <Expandable title="10. Contradictions and ambiguities" default-open="false">
+    <Callout kind="alert">
+      These findings require **stakeholder decisions** before implementation can proceed.
+    </Callout>
+
+    ### 10.1 Customer-contact relationship: 1:N vs M:N
+
+    **PRD**: Bijlage A lists a `customer_contact` linking table (implying M:N).
+    **Current**: `contact.customer_id` FK makes it 1:N.
+    **Decision needed**: Can one contact serve multiple customers? If not, current 1:N is correct.
+
+    ### 10.2 Invoice-contract nullability
+
+    **PRD** (FR-INV-MAN-001): "facturen moeten altijd gelinkt zijn aan een contract"
+    **Current**: `invoice.contract_id` is nullable (migration 000014 made it optional).
+    **Decision needed**: Should standalone invoices be allowed?
+
+    ### 10.3 Deposit/advance: 1 invoice vs 2 invoices
+
+    **PRD** (FR-DEP-001): "Indien beide gevraagd: 1 factuur met 2 factuurlijnen"
+    **Current**: Creates 2 separate invoices.
+    **Decision needed**: Confirm PRD is correct (1 invoice with 2 lines). Affects invoice numbering and Exact Online mapping.
+
+    ### 10.4 Negative line convention
+
+    **PRD** (FR-DEP-003): `qty < 0, price > 0` (Peppol compatible)
+    **Current**: `qty: 1, price: -amount`
+    **Decision needed**: Which convention does Exact Online / Peppol require?
+
+    ### 10.5 Verhuurstatus: computed vs manual
+
+    **PRD** (FR-FLEET-001/003): Verhuurstatus is time-dependent, derived from planning events.
+    **Current**: Manually-set dropdown value.
+    **Decision needed**: Auto-compute from active contracts, or keep manual with a separate computed badge?
+
+    ### 10.6 Contract status auto-transitions
+
+    **PRD** (FR-CON-005) implies multiple auto-transitions:
+    - Geaccepteerd to In verhuur (when start date <= today) — **implemented**
+    - In verhuur to Te controleren (after real end date) — **not implemented**
+    - Te controleren to Schadeverwerking (if damage) — **not implemented**, state doesn't exist
+
+    **Decision needed**: Should all be auto-transitions or manual?
+
+    ### 10.7 Factuurnummering: internal vs Exact
+
+    **PRD** (FR-INVNUM-001): "Tool bewaart intern factuurnummer en Exact-factuurnummer"
+    **Current**: `invoice_number` (internal) + `exactonline_ref` (self-generated).
+    **Decision needed**: How does Exact Online assign its own number? Does the tool need to store it?
+
+    ### 10.8 PDF generation technology
+
+    **PRD** (FR-COMM-001, FR-CON-006): Offerte/contract PDF generation from templates.
+    **Current**: Template upload/storage works, no PDF engine.
+    **Decision needed**: Which library? puppeteer/chromium (HTML to PDF), pdf-lib, react-pdf, or server-side? Affects template format.
+
+    ### 10.9 Notification triggers: real-time vs batch
+
+    **PRD** (FR-NOTIF-001, FR-SET-001): Parameters trigger notifications.
+    **Current**: `notification_log` table exists, logic for checking conditions present, execution model unclear.
+    **Decision needed**: Cron job (Supabase Edge Function), database triggers, or application-level event handlers?
+
+    ### 10.10 Outlook: desktop vs web
+
+    **PRD** (Section 12): "Technische aanpak voor Outlook draft (desktop vs web)"
+    **Current**: Microsoft Graph API (web-based cloud mailbox drafts).
+    **Decision needed**: Is Graph API sufficient, or do users expect desktop Outlook integration?
+
+    ### 10.11 STAS as invoice-to
+
+    **PRD** (FR-CON-004): "STAS kan ook gekozen worden (bv. garantie)"
+    **Current**: `invoice_to_id` FK points to `customer` table.
+    **Decision needed**: Is STAS a customer record, or does it need special handling?
+
+    ### 10.12 Repair order status sync
+
+    **PRD** (TR-REPAIR-001): "Synchronisatie van repair order status"
+    **Current**: Only `repair_order_ref` text field.
+    **Decision needed**: Which external system? What statuses? Polling or manual entry?
+  </Expandable>
+</ExpandableGroup>
