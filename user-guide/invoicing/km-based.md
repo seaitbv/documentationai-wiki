@@ -1,0 +1,113 @@
+---
+title: "Km-based invoicing"
+description: "Understand how ARMS calculates km-based invoice proposals using odometer readings."
+---
+
+Km-based invoicing calculates billing amounts based on the kilometers driven during the billing period. ARMS uses odometer readings from the [[user-guide/fleet/km-registration|km registration]] records to determine the distance traveled.
+
+## Proposal columns
+
+The km-based proposal table displays:
+
+| Column | Description |
+|--------|-------------|
+| **Contract ID** | Link to the contract detail |
+| **Customer** | Customer name |
+| **Trailer** | Trailer display name |
+| **Km reading at start** | Odometer value at or just before the period start |
+| **Km reading at end** | Odometer value at or just before the period end |
+| **Total km driven** | Difference between end and start readings |
+| **Unit price per km** | The per-km rental price |
+| **Discount (%)** | Discount percentage on the rental |
+| **Insurance per km** | The per-km insurance price |
+| **Net total (excl. VAT)** | Calculated total before VAT |
+| **Status** | Red warning if km data is missing or outdated |
+
+## Calculation logic
+
+### Step 1: Determine effective dates
+
+The system uses the **real dates** (pickup/dropoff) when available. Otherwise, it falls back to **estimated dates**.
+
+    ```
+    effective_start = real start date OR estimated start date
+    effective_end   = real end date OR estimated end date
+    ```
+
+### Step 2: Calculate the billing period
+
+```
+    period_start = MAX(billing start, effective start)
+    period_end   = MIN(billing end, effective end)
+    ```
+
+    If period start is after period end, the contract does not appear in the proposals.
+
+### Step 3: Look up km readings
+
+ARMS finds the most recent km registration for the trailer's plate number:
+    - **Start reading**: most recent record with a date on or before `period_start`
+    - **End reading**: most recent record with a date on or before `period_end`
+
+    ```
+    driven_km = km_end - km_start
+    ```
+
+
+> [!warning]
+> Km-based invoicing requires **at least two km readings** for the trailer: one at or before the period start and one at or before the period end. If readings are missing, the proposal row displays in **red** with a warning.
+
+
+## Missing data warning
+
+If the most recent km reading is older than the period end date or the contract end date, the proposal row appears in **red** with the message "Missing km data". This means:
+
+- The km reading may not reflect the actual distance driven during the billing period
+- You should add a current km reading in [[user-guide/fleet/km-registration|Km registration]] before generating the invoice
+
+> [!tip]
+> Regularly update km readings for km-based contracts to ensure accurate invoicing. Outdated readings lead to underbilling or the inability to invoice.
+
+
+## Generated invoice lines
+
+ARMS generates two invoice lines for km-based contracts:
+
+| Line | Quantity | Unit price | VAT | Discount applies? |
+|------|----------|------------|-----|-------------------|
+| **Trailer rental -- [km_start] to [km_end] km** | Driven km | Rental price per km | Customer VAT % | Yes |
+| **Insurance -- [km_start] to [km_end] km** | Driven km | Insurance price per km | 0% | No |
+
+> [!info]
+> The discount percentage applies **only to the rental line**, never to insurance. Insurance is always invoiced at the full price per km with **0% VAT**.
+
+
+## Km lock (anti-double billing)
+
+When you create an invoice from a km-based proposal, ARMS records the km range in the `Invoice_Km_Lock` table. This prevents the same kilometer range from being invoiced again in a future run.
+
+If a contract's km range has already been partially invoiced, the proposal shows only the remaining (uninvoiced) kilometers.
+
+## Example calculation
+
+A contract with the following details:
+- Billing period: March 1-31
+- Km reading at March 1: 45,000 km
+- Km reading at March 31: 48,500 km
+- Driven km: 3,500 km
+- Unit price rental: 0.18 EUR/km
+- Unit price insurance: 0.02 EUR/km
+- Discount: 0%
+- Customer VAT: 21%
+
+| Line | Qty | Price | Discount | VAT | Total |
+|------|-----|-------|----------|-----|-------|
+| Trailer rental -- 45,000 to 48,500 km | 3,500 | 0.18 | 0% | 21% | 630.00 |
+| Insurance -- 45,000 to 48,500 km | 3,500 | 0.02 | -- | 0% | 70.00 |
+| | | | | **Subtotal** | **700.00** |
+
+## Related pages
+
+- **[[user-guide/fleet/km-registration|Km registration]]** — Manage odometer readings used for km-based billing.
+
+  - **[[user-guide/invoicing/proposals|Invoice proposals]]** — Generate and review invoice proposals before creating invoices.

@@ -1,0 +1,78 @@
+---
+title: "Status changes"
+description: "Understand the rules and transitions that govern trailer statuses in ARMS."
+---
+
+Each trailer in ARMS has a status that reflects its current operational state. Status transitions follow specific rules to maintain data integrity and ensure accurate fleet tracking.
+
+## Status overview
+
+| Status | Color | Description |
+|--------|-------|-------------|
+| **Active** | Green | Trailer is available for rental |
+| **Rented** | Blue | Trailer is under an active rental contract |
+| **To check** | Yellow | Trailer needs inspection (typically after return) |
+| **End-of-life** | Dark gray | Trailer is permanently retired |
+| **Sold** | Gray | Trailer has been sold |
+
+## Status transition diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> Active
+    Active --> Rented : Automatic (contract starts)
+    Active --> ToCheck : Manual
+    Active --> EndOfLife : Manual (confirmation required)
+    Active --> Sold : Manual (confirmation required)
+    Rented --> ToCheck : Automatic (on return)
+    ToCheck --> Active : Manual (after inspection)
+
+    state EndOfLife {
+        [*] --> Retired
+    }
+    state Sold {
+        [*] --> SoldState
+    }
+```
+
+## Transition rules
+
+| From | To | How | Details |
+|------|----|-----|---------|
+| Active | Rented | Automatic | The system sets this automatically when a rental contract becomes active |
+| Active | To check | Manual | You trigger this when a trailer needs inspection outside of the normal return flow |
+| Active | End-of-life | Manual | Requires a confirmation prompt. This indicates the trailer is permanently retired |
+| Active | Sold | Manual | Requires a confirmation prompt. This indicates the trailer has been sold |
+| Rented | To check | Automatic | The system sets this automatically when a trailer is returned from a rental |
+| To check | Active | Manual | You set this after the post-return inspection is completed and approved |
+| End-of-life | Any | Not allowed | This status is irreversible. Only an Admin can override this in exceptional cases |
+| Sold | Any | Not allowed | This status is irreversible. Only an Admin can override this in exceptional cases |
+
+## Changing a trailer's status
+
+### Step 1: Open the status dialog
+
+On the [[user-guide/fleet/trailer-details|trailer detail screen]], click the **Change status** button in the header card.
+
+### Step 2: Select the new status
+
+Choose the target status from the available options. Only valid transitions appear based on the current status.
+
+### Step 3: Confirm if required
+
+For transitions to **End-of-life** or **Sold**, a confirmation dialog appears. Read the warning carefully and confirm to proceed.
+
+
+> [!danger]
+> Transitioning a trailer to **End-of-life** or **Sold** is irreversible under normal operations. Only users with the Admin role can reverse these statuses in exceptional circumstances. Make sure this is the intended action before confirming.
+
+
+> [!info]
+> You do not need to manually set a trailer to "Rented" or back to "To check" after return. These transitions happen automatically through the contract lifecycle.
+
+
+## Related pages
+
+- **[[user-guide/fleet/overview|Fleet overview]]** — See status badges across your entire fleet.
+
+  - **[[user-guide/fleet/trailer-details|Trailer details]]** — Access the status change button from the detail screen.

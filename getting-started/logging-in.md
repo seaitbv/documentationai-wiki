@@ -1,0 +1,92 @@
+---
+title: "Logging In"
+description: "How to sign in to ARMS with your Microsoft account, set your language, and manage your session"
+---
+
+## Sign in with your Microsoft account
+
+ARMS uses Microsoft Single Sign-On (SSO) through Azure Active Directory. You sign in with the same Microsoft account you use for Outlook, Teams, and other company tools.
+
+### Step 1: Open ARMS
+
+Navigate to your company's ARMS URL in your browser (e.g., `https://arms.atrac.be`).
+
+    You will see the ARMS login screen with a **"Sign in with Microsoft"** button.
+
+### Step 2: Click Sign in with Microsoft
+
+Click the button to be redirected to the Microsoft login page. If you are already signed in to your Microsoft account in this browser, you may be signed in automatically.
+
+    > [!tip]
+> If you have multiple Microsoft accounts, make sure you select the one associated with your company.
+
+### Step 3: Enter your credentials
+
+Enter your Microsoft email address and password. If your organization has Multi-Factor Authentication (MFA) enabled, complete the additional verification step.
+
+    > [!warning]
+> MFA is strongly recommended for users with the **Admin** or **Accounting** role. Ask your administrator to enable it if it is not yet active for your account.
+
+### Step 4: Land on the Dashboard
+
+After successful authentication, you are redirected to the ARMS Dashboard. The modules visible in the sidebar depend on your assigned role.
+
+    > [!success]
+> You are now signed in. Your session remains active until you sign out or the inactivity timeout expires.
+
+
+## First-time login
+
+When you sign in to ARMS for the first time:
+
+1. Your account is created automatically based on your Microsoft identity.
+2. Your administrator assigns you a **role** (Admin, Commercial, Accounting, Fleet Manager, or Read-Only).
+3. The application language defaults to **Dutch (NL)**. You can change this at any time.
+
+> [!info]
+> If you see a message that your account does not have access, contact your ARMS administrator to have your role assigned.
+
+
+## Setting your language
+
+ARMS supports **Dutch (NL)** and **French (FR)**. Your language preference controls the entire user interface including labels, messages, and validation errors.
+
+To change your language:
+
+1. Click your **user profile** icon in the top-right corner of the header.
+2. Select your preferred language from the language dropdown.
+3. The interface updates immediately.
+
+> [!tip]
+> Your language preference is saved to your profile and persists across sessions. You do not need to set it again each time you log in.
+
+
+## Session management
+
+ARMS automatically tracks your session activity. Key behaviors to be aware of:
+
+| Behavior | Description |
+|----------|-------------|
+| **Inactivity timeout** | Your session expires after a configurable period of inactivity (default: 60 minutes). You will be redirected to the login screen. |
+| **Manual sign out** | Click your profile icon and select **Sign out** to end your session immediately. |
+| **Token expiration** | All session tokens are invalidated upon sign out. You cannot reuse a previous session. |
+| **Multiple tabs** | Your session is shared across browser tabs. Signing out in one tab signs you out everywhere. |
+
+> [!info]
+> The inactivity timeout is configurable by your administrator through the **Parameters** module. The parameter `SESSION_TIMEOUT_MINUTES` controls this value. See [[user-guide/administration/parameters|Parameters]] for details.
+
+
+## Security recommendations
+
+> [!warning]
+> Follow these practices to keep your account secure:
+>
+>   - **Enable MFA** on your Microsoft account, especially if you have an Admin or Accounting role.
+>   - **Sign out** when you step away from a shared workstation.
+>   - **Do not share** your Microsoft credentials with other users.
+>   - **Report** any suspicious activity to your administrator immediately.
+
+
+- **[[getting-started/navigating-arms|Navigating ARMS]]** — Learn about the sidebar, modules, and navigation structure.
+
+  - **[[getting-started/first-workflow|Your First Workflow]]** — Walk through a complete rental workflow from start to finish.
