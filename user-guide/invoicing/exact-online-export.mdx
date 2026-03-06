@@ -48,6 +48,10 @@ Before you can export an invoice, ARMS validates the following:
   </Step>
 </Steps>
 
+<Callout kind="info">
+  ARMS includes idempotency protection to prevent duplicate exports. If an invoice has already been exported, the system blocks a second export attempt and displays a warning. This safeguards against accidental double entries in Exact Online.
+</Callout>
+
 ## Field mapping
 
 ARMS maps invoice data to Exact Online fields as follows:

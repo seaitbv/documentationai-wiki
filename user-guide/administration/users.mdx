@@ -1,0 +1,102 @@
+---
+title: "Users & Roles"
+description: "Manage user accounts, role assignments, and access control in ARMS."
+---
+
+The Users page allows administrators to manage who has access to ARMS and what they can do. Each user is assigned a role that determines their permissions throughout the system.
+
+<Callout kind="alert">
+  User management is restricted to users with the **Admin** role.
+</Callout>
+
+## User list
+
+The user list displays all registered accounts with the following columns:
+
+| Column | Description |
+|--------|-------------|
+| **Name** | The user's full name |
+| **Email** | Login email address |
+| **Role** | Assigned permission role |
+| **Company** | The company the user belongs to (Atrac or Urbain) |
+| **Status** | Active or deactivated |
+
+## Available roles
+
+| Role | Description |
+|------|-------------|
+| **Admin** | Full system access including user management, company settings, and all administrative functions |
+| **Commercial** | Manage offers, contracts, customers, and fleet operations |
+| **Accounting** | Access to invoicing, credit notes, financial reports, and contract financial data |
+| **Fleet Manager** | Manage trailers, inspections, planning, and fleet-related operations |
+| **Read Only** | View-only access across the system with no editing capabilities |
+
+## Creating a new user
+
+<Steps>
+  <Step title="Open the Users page" icon="users" titleType="p">
+    Navigate to **Administration > Users** in the sidebar.
+  </Step>
+
+  <Step title="Click Create" icon="plus" titleType="p">
+    Click the **Create** button to open the new user form.
+  </Step>
+
+  <Step title="Fill in user details" icon="text-cursor" titleType="p">
+    Enter the user's name and email address. The email address serves as their login credential.
+  </Step>
+
+  <Step title="Assign a role" icon="shield" titleType="p">
+    Select the appropriate role from the dropdown. This determines the user's permissions across the system.
+  </Step>
+
+  <Step title="Assign a company" icon="building" titleType="p">
+    Select which company (Atrac or Urbain) this user belongs to. This controls which data the user can access through row-level security.
+  </Step>
+
+  <Step title="Save the user" icon="save" titleType="p">
+    Click **Save** to create the account. The user receives an invitation email to set their password.
+  </Step>
+</Steps>
+
+## Editing or deactivating a user
+
+<Steps>
+  <Step title="Select a user" icon="mouse-pointer" titleType="p">
+    Click a user row to open their detail view.
+  </Step>
+
+  <Step title="Click Edit" icon="edit" titleType="p">
+    Click the **Edit** button to make the user's fields editable.
+  </Step>
+
+  <Step title="Update fields or deactivate" icon="text-cursor" titleType="p">
+    Change the user's role, company assignment, or other details. To revoke access, set the status to **Deactivated**.
+  </Step>
+
+  <Step title="Save your changes" icon="save" titleType="p">
+    Click **Save** to apply the changes.
+  </Step>
+</Steps>
+
+<Callout kind="info">
+  Deactivating a user prevents them from logging in but preserves their historical activity in the system. Deactivated users do not count toward active user limits.
+</Callout>
+
+## Company assignment
+
+Each user is assigned to a single company. This assignment works together with row-level security to ensure users only see data belonging to their company. Admin users may have access across both companies depending on the system configuration.
+
+For technical details on how roles and permissions are implemented, see the [RBAC documentation](/technical/auth/rbac).
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Companies" href="/user-guide/administration/companies" icon="building" horizontal="false">
+    Manage the company entities that users belong to.
+  </Card>
+
+  <Card title="RBAC" href="/technical/auth/rbac" icon="lock" horizontal="false">
+    Technical documentation on role-based access control.
+  </Card>
+</Columns>

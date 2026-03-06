@@ -165,6 +165,35 @@ Converts an ARMS invoice to the Exact Online JSON format.
   </Step>
 </Steps>
 
+## Idempotency protection
+
+To prevent duplicate invoice entries in Exact Online, ARMS implements an idempotency mechanism:
+
+### How it works
+
+1. Before export, the system checks the `exact_online_exported_at` timestamp on the invoice record
+2. If the field is already set, the export is blocked with an error message
+3. On successful export, the timestamp is written atomically as part of the same transaction
+
+```typescript
+// Simplified idempotency check
+if (invoice.exact_online_exported_at !== null) {
+  throw new Error("Invoice has already been exported to Exact Online");
+}
+
+// Export and mark as exported in a single transaction
+await supabase.from('invoices')
+  .update({ exact_online_exported_at: new Date().toISOString() })
+  .eq('id', invoice.id)
+  .is('exact_online_exported_at', null);  // Optimistic lock
+```
+
+This pattern ensures that even if two users click "Export" simultaneously, only one export succeeds.
+
+<Callout kind="info">
+  If you need to re-export an invoice (e.g., after correcting data in Exact Online), an administrator can reset the export status through the [Integrations](/user-guide/administration/integrations) dashboard.
+</Callout>
+
 ## Future: OAuth2 API integration
 
 The planned next phase will add direct API integration with Exact Online:

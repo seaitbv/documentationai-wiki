@@ -1,0 +1,72 @@
+---
+title: "Audit Log"
+description: "Track and review all changes made to records in ARMS with the audit log viewer."
+---
+
+The Audit Log provides a chronological record of all create, update, and delete actions performed on key entities in ARMS. Use it to review who changed what, when, and what the previous values were.
+
+<Callout kind="info">
+  This page is accessible to users with the **Admin** role only.
+</Callout>
+
+## Tracked entity types
+
+The audit log captures changes for the following entity types:
+
+| Entity type | Description |
+|-------------|-------------|
+| **Trailer** | Fleet trailer records |
+| **Contract** | Rental and lease contracts |
+| **Offer** | Commercial offers and quotes |
+| **Inspection** | Technical inspection records |
+| **Customer** | Customer accounts |
+| **Invoice** | Invoice and credit note records |
+
+## Filtering the log
+
+Use the filter bar at the top of the page to narrow down the audit log entries.
+
+| Filter | Description |
+|--------|-------------|
+| **Entity type** | Dropdown to select a specific entity type |
+| **User** | Dropdown to filter by the user who made the change |
+| **Date range** | Date picker to define a start and end date |
+
+## Log entries
+
+The audit log table displays 25 entries per page with the following columns:
+
+| Column | Description |
+|--------|-------------|
+| **Timestamp** | Date and time of the change |
+| **User** | The user who performed the action |
+| **Entity type** | The type of record that was changed |
+| **Entity ID** | Identifier of the affected record (linked to the record detail page) |
+| **Action** | The type of change: **Created**, **Updated**, or **Deleted** |
+
+### Field-level changes
+
+Expand any log entry row to view the specific fields that were modified. The detail view shows a diff-style comparison:
+
+| Field | Old value | New value |
+|-------|-----------|-----------|
+| Status | Draft | Active |
+| Price | 1200.00 | 1350.00 |
+
+This allows you to see exactly which fields changed and what their previous values were.
+
+<Callout kind="info">
+  Audit log entries are retained according to your organization's data retention policy. Contact your administrator for details on the retention period.
+</Callout>
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Users" href="/user-guide/administration/users" icon="users" horizontal="false">
+    Manage user accounts and review user activity.
+  </Card>
+
+  <Card title="Integrations" href="/user-guide/administration/integrations" icon="plug" horizontal="false">
+    Monitor external system connections and export history.
+  </Card>
+</Columns>

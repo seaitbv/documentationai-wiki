@@ -89,6 +89,45 @@ When you create an invoice from a km-based proposal, ARMS records the km range i
 
 If a contract's km range has already been partially invoiced, the proposal shows only the remaining (uninvoiced) kilometers.
 
+## Yearly KM maximum and surplus pricing
+
+ARMS supports a yearly maximum kilometer allowance per contract. When a trailer exceeds the yearly maximum during a billing period, the surplus kilometers are invoiced at a higher rate.
+
+### Configuration
+
+Two system parameters control this feature:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| **KM_YEARLY_MAX** | Maximum kilometers included per year at the standard rate | Configured per contract |
+| **KM_SURPLUS_PRICE_EUR** | Price per kilometer above the yearly maximum | Configured per contract |
+
+### How it works
+
+1. ARMS tracks cumulative kilometers invoiced per contract per calendar year
+2. When a billing period causes the cumulative total to exceed `KM_YEARLY_MAX`, the surplus is split:
+   - Kilometers within the allowance are invoiced at the standard `unit_price_rental`
+   - Kilometers above the allowance are invoiced at `KM_SURPLUS_PRICE_EUR`
+
+### Surplus calculation example
+
+A contract with:
+- Yearly maximum: 50,000 km
+- Standard price: 0.18 EUR/km
+- Surplus price: 0.25 EUR/km
+- Already invoiced this year: 48,000 km
+- Current period driven: 4,000 km
+
+| Line | Quantity | Unit price | Total |
+|------|----------|------------|-------|
+| Standard km (within allowance) | 2,000 km | 0.18 EUR | 360.00 |
+| Surplus km (above allowance) | 2,000 km | 0.25 EUR | 500.00 |
+| Insurance | 4,000 km | 0.02 EUR | 80.00 |
+
+<Callout kind="tip">
+  Monitor the yearly km usage in the contract detail screen to anticipate when surplus pricing will apply. Proactively inform customers before they exceed their yearly allowance.
+</Callout>
+
 ## Example calculation
 
 A contract with the following details:

@@ -1,0 +1,81 @@
+---
+title: "Import & Export"
+description: "Bulk import data into ARMS using the XLSX import wizard for KM registrations."
+---
+
+The Import & Export page allows you to upload bulk data into ARMS using a guided import wizard. Currently, the wizard supports importing KM registrations from spreadsheet files.
+
+<Callout kind="info">
+  This page is accessible to users with the **Admin** or **Fleet Manager** role.
+</Callout>
+
+## KM registration import wizard
+
+The import wizard guides you through four steps to upload and validate kilometer readings in bulk.
+
+<Steps>
+  <Step title="Upload file" icon="upload" titleType="p">
+    Select the file you want to import. Supported formats:
+
+    - `.xlsx` (Excel 2007+)
+    - `.xls` (Legacy Excel)
+    - `.csv` (Comma-separated values)
+
+    Click **Next** to proceed to column mapping.
+  </Step>
+
+  <Step title="Map columns" icon="columns" titleType="p">
+    The wizard attempts to auto-detect column mappings based on common patterns for date, plate number, and KM amount fields. Pattern recognition works across Dutch, French, and English column headers.
+
+    Review the detected mappings and adjust manually if needed. Each required field must be mapped to a column in your file before you can continue.
+  </Step>
+
+  <Step title="Validate" icon="check-circle" titleType="p">
+    ARMS validates every row in the file before importing. Rows that fail validation are flagged with an error reason.
+
+    | Validation rule | Description |
+    |-----------------|-------------|
+    | **Unknown plate number** | The plate number does not match any trailer in ARMS |
+    | **Invalid date format** | The date value could not be parsed into a valid date |
+    | **Invalid KM value** | The KM amount is not a valid number |
+    | **KM below previous reading** | The KM value is lower than the most recent reading for that trailer |
+
+    You can review and correct flagged rows or proceed to import only the valid rows.
+  </Step>
+
+  <Step title="Import" icon="download" titleType="p">
+    Confirm the import to execute it. A summary shows the total number of rows, how many will be imported, and how many were skipped due to validation errors.
+
+    Click **Confirm** to complete the import.
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Prepare your data before importing by ensuring plate numbers match the format used in ARMS and that KM values are in ascending chronological order per trailer.
+</Callout>
+
+## Import history
+
+The import history log tracks all previous imports.
+
+| Column | Description |
+|--------|-------------|
+| **Date** | Date and time of the import |
+| **Import type** | The type of data imported (e.g., KM registration) |
+| **Filename** | Name of the uploaded file |
+| **Total rows** | Total number of rows in the file |
+| **Successful rows** | Number of rows imported successfully |
+| **Failed rows** | Number of rows that failed validation |
+| **Imported by** | The user who performed the import |
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="KM registration" href="/user-guide/fleet/km-registration" icon="gauge" horizontal="false">
+    View and manage individual kilometer readings per trailer.
+  </Card>
+
+  <Card title="Trailer overview" href="/user-guide/fleet/overview" icon="truck" horizontal="false">
+    Browse the full trailer fleet.
+  </Card>
+</Columns>

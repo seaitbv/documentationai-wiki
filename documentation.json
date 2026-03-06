@@ -67,6 +67,14 @@
             ]
           },
           {
+            "group": "Contacts",
+            "icon": "contact",
+            "expandable": true,
+            "pages": [
+              { "title": "Overview", "path": "user-guide/contacts/overview", "icon": "list" }
+            ]
+          },
+          {
             "group": "Offers",
             "icon": "file-text",
             "expandable": true,
@@ -123,7 +131,15 @@
             "pages": [
               { "title": "Parameters", "path": "user-guide/administration/parameters", "icon": "settings" },
               { "title": "Dropdown Values", "path": "user-guide/administration/dropdown-values", "icon": "list-ordered" },
-              { "title": "Templates", "path": "user-guide/administration/templates", "icon": "file-stack" }
+              { "title": "Templates", "path": "user-guide/administration/templates", "icon": "file-stack" },
+              { "title": "Companies", "path": "user-guide/administration/companies", "icon": "building-2" },
+              { "title": "Locations", "path": "user-guide/administration/locations", "icon": "map-pin" },
+              { "title": "Users & Roles", "path": "user-guide/administration/users", "icon": "user-cog" },
+              { "title": "Communication", "path": "user-guide/administration/communication", "icon": "message-square" },
+              { "title": "Notifications", "path": "user-guide/administration/notifications", "icon": "bell-ring" },
+              { "title": "Import & Export", "path": "user-guide/administration/import-export", "icon": "arrow-up-down" },
+              { "title": "Integrations", "path": "user-guide/administration/integrations", "icon": "plug" },
+              { "title": "Audit Log", "path": "user-guide/administration/audit-log", "icon": "clipboard-list" }
             ]
           }
         ]

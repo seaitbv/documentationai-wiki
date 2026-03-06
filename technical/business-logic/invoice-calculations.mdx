@@ -158,6 +158,28 @@ driven_km = km_end.km_amount - km_start.km_amount
 | 1 | Huur (Rental) | `driven_km` | `unit_price_rental` | Contract VAT % | Yes |
 | 2 | Verzekering (Insurance) | `driven_km` | `unit_price_insurance` | 0% | No |
 
+### KM surplus pricing
+
+When a contract defines a yearly maximum (`km_yearly_max`) and a surplus price (`km_surplus_price_eur`), the system splits driven kilometers into standard and surplus portions:
+
+```
+cumulative_km_this_year = SUM of previously invoiced km for this contract in the current calendar year
+remaining_allowance = MAX(0, km_yearly_max - cumulative_km_this_year)
+
+standard_km = MIN(driven_km, remaining_allowance)
+surplus_km  = driven_km - standard_km
+```
+
+This generates up to three invoice lines instead of two:
+
+| Line | Quantity | Unit price | VAT | Discount |
+|------|----------|------------|-----|----------|
+| 1 | Huur (standard) | `standard_km` | `unit_price_rental` | Contract VAT % | Yes |
+| 1a | Huur (surplus) | `surplus_km` | `km_surplus_price_eur` | Contract VAT % | Yes |
+| 2 | Verzekering | `driven_km` | `unit_price_insurance` | 0% | No |
+
+Line 1a only appears when `surplus_km > 0`.
+
 ## Advance offset
 
 When a contract has a prepaid advance (`advance_amount`), it is gradually offset against recurring invoices:

@@ -1,0 +1,60 @@
+---
+title: "Integrations"
+description: "Monitor and manage external system integrations including Exact Online and Outlook connections."
+---
+
+The Integrations page provides a dashboard for monitoring the status of external systems connected to ARMS. From here you can review export history, retry failed operations, and manage user connections.
+
+<Callout kind="info">
+  This page is accessible to users with the **Admin** role only.
+</Callout>
+
+## Exact Online
+
+The Exact Online section displays the status of financial data exports from ARMS to Exact Online.
+
+### Failed exports
+
+A table lists all exports that did not complete successfully. Each row includes the export date, entity type, entity reference, and the error message returned by Exact Online.
+
+Use the **Retry** button on any failed row to re-attempt the export. ARMS resubmits the original payload to Exact Online and updates the status accordingly.
+
+### Recent export history
+
+The export history table shows all recent export attempts with their current status.
+
+| Column | Description |
+|--------|-------------|
+| **Date** | Date and time of the export attempt |
+| **Entity type** | The type of record exported (e.g., invoice, credit note) |
+| **Entity reference** | The ARMS reference for the exported record |
+| **Status** | Current status: **Success**, **Failed**, or **Pending** |
+
+## Outlook
+
+The Outlook section manages Microsoft Outlook connections for ARMS users. Integration uses Microsoft OAuth to securely link user accounts.
+
+### Connected users
+
+| Column | Description |
+|--------|-------------|
+| **User name** | The ARMS user's display name |
+| **Email** | The linked Microsoft email address |
+| **Connection date** | Date the OAuth connection was established |
+| **Status** | Current connection status (active or expired) |
+
+<Callout kind="tip">
+  If a user's connection status shows as expired, the user needs to re-authenticate through their profile settings. Refer to the [Microsoft identity platform documentation](https://learn.microsoft.com/en-us/entra/identity-platform/) for details on OAuth flows.
+</Callout>
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Exact Online export" href="/user-guide/invoicing/exact-online-export" icon="file-output" horizontal="false">
+    Learn about the invoice export process to Exact Online.
+  </Card>
+
+  <Card title="Users" href="/user-guide/administration/users" icon="users" horizontal="false">
+    Manage user accounts and permissions.
+  </Card>
+</Columns>

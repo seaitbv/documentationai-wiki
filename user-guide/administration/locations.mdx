@@ -1,0 +1,76 @@
+---
+title: "Locations"
+description: "Manage pick-up locations for trailers and contracts in ARMS."
+---
+
+Locations represent the physical pick-up points where trailers are stationed. Each location belongs to a specific company (Atrac or Urbain) and is used throughout the system in fleet and contract forms.
+
+<Callout kind="alert">
+  Location management is restricted to users with the **Admin** role.
+</Callout>
+
+## Location list
+
+The location list displays all registered pick-up locations. Use the **company filter** dropdown at the top of the page to show locations for a specific company.
+
+| Column | Description |
+|--------|-------------|
+| **Name** | The location's display name |
+| **Address** | Physical address of the location |
+| **Company** | The company this location belongs to (Atrac or Urbain) |
+
+## Creating a location
+
+<Steps>
+  <Step title="Open the Locations page" icon="map-pin" titleType="p">
+    Navigate to **Administration > Locations** in the sidebar.
+  </Step>
+
+  <Step title="Click Create" icon="plus" titleType="p">
+    Click the **Create** button to open the new location form.
+  </Step>
+
+  <Step title="Fill in the location details" icon="text-cursor" titleType="p">
+    Enter the location name, address, and select the company this location belongs to.
+  </Step>
+
+  <Step title="Save the location" icon="save" titleType="p">
+    Click **Save** to create the location.
+  </Step>
+</Steps>
+
+## Editing a location
+
+<Steps>
+  <Step title="Select a location" icon="mouse-pointer" titleType="p">
+    Click a location row to open its detail view.
+  </Step>
+
+  <Step title="Click Edit" icon="edit" titleType="p">
+    Click the **Edit** button to make the fields editable.
+  </Step>
+
+  <Step title="Update the desired fields" icon="text-cursor" titleType="p">
+    Modify the location name, address, or company assignment as needed.
+  </Step>
+
+  <Step title="Save your changes" icon="save" titleType="p">
+    Click **Save** to apply your changes. Click **Cancel** to discard them.
+  </Step>
+</Steps>
+
+<Callout kind="info">
+  Locations appear as selectable options in trailer forms (pick-up location field) and in contract forms. Changing a location's details updates how it displays across the system, but does not affect historical records.
+</Callout>
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Trailer details" href="/user-guide/fleet/trailer-details" icon="truck" horizontal="false">
+    View and manage trailer information including pick-up location.
+  </Card>
+
+  <Card title="Companies" href="/user-guide/administration/companies" icon="building" horizontal="false">
+    Manage the company entities that locations belong to.
+  </Card>
+</Columns>

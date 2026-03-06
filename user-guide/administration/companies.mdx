@@ -1,0 +1,72 @@
+---
+title: "Companies"
+description: "Manage company entities in ARMS, including company details, branding, and bank account information."
+---
+
+ARMS supports two separate company entities: **Atrac** and **Urbain**. Each company operates with its own branding, templates, invoice numbering, and data isolation through row-level security.
+
+<Callout kind="alert">
+  Company management is restricted to users with the **Admin** role.
+</Callout>
+
+## Company fields
+
+The following fields are available for each company:
+
+| Field | Description |
+|-------|-------------|
+| **Name** | The legal company name |
+| **Address** | Registered business address |
+| **VAT number** | Value Added Tax identification number |
+| **Logo** | Company logo used in templates and documents |
+| **Bank account details** | IBAN and BIC used on invoices and financial documents |
+
+## How company selection affects the system
+
+Company assignment is a foundational setting that influences several areas of ARMS:
+
+| Area | Effect |
+|------|--------|
+| **Templates** | Each company has its own set of document templates for offers, contracts, and invoices |
+| **Invoice numbering** | Invoice number sequences run independently per company |
+| **Row-level security** | Data is scoped per company, ensuring users only see records belonging to their assigned company |
+
+## Editing a company
+
+<Steps>
+  <Step title="Open the Companies page" icon="building" titleType="p">
+    Navigate to **Administration > Companies** in the sidebar.
+  </Step>
+
+  <Step title="Select a company" icon="mouse-pointer" titleType="p">
+    Click the company you want to edit. The company detail view opens.
+  </Step>
+
+  <Step title="Click Edit" icon="edit" titleType="p">
+    Click the **Edit** button to make the company fields editable.
+  </Step>
+
+  <Step title="Update the desired fields" icon="text-cursor" titleType="p">
+    Modify any of the available fields such as address, VAT number, logo, or bank account details.
+  </Step>
+
+  <Step title="Save your changes" icon="save" titleType="p">
+    Click **Save** to apply your changes. Click **Cancel** to discard them.
+  </Step>
+</Steps>
+
+<Callout kind="info">
+  Changes to company details such as the logo or bank account are reflected in all future documents generated for that company.
+</Callout>
+
+## Related pages
+
+<Columns cols="2">
+  <Card title="Templates" href="/user-guide/administration/templates" icon="file-text" horizontal="false">
+    Manage document templates per company.
+  </Card>
+
+  <Card title="Parameters" href="/user-guide/administration/parameters" icon="sliders" horizontal="false">
+    Configure system-wide dropdown values and options.
+  </Card>
+</Columns>
